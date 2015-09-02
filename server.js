@@ -29,6 +29,7 @@ var compiler = webpack(compilerConfiguration);
 var devServer = new WebpackDevServer(compiler, {
   contentBase: __dirname + '/dist',
   filename: 'bundle.js',
+  inline: true,
   proxy: {
     '*': 'http://' + config.host + ':' + config.port,
   },

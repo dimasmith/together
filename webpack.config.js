@@ -5,4 +5,9 @@ module.exports = {
     path: __dirname + '/dist',
     filename: 'bundle.js',
   },
+  module: {
+    loaders: [
+      { test: /\.jade$/, loader: 'jade-loader'},
+    ],
+  },
 };
