@@ -15,3 +15,17 @@ export function receivePhotos(photos) {
     photos,
   };
 }
+
+export const NEXT_PHOTO = 'NEXT_PHOTO';
+export function showNextPhoto() {
+  return {
+    type: NEXT_PHOTO,
+  };
+}
+
+export const PREVIOUS_PHOTO = 'PREVIOUS_PHOTO';
+export function showPreviousPhoto() {
+  return {
+    type: PREVIOUS_PHOTO,
+  };
+}

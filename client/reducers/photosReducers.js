@@ -3,10 +3,11 @@
  */
 
 import { combineReducers } from 'redux';
+import _ from 'lodash';
 
-import { RECEIVE_PHOTOS, REQUEST_PHOTOS } from '../actions/photoActions.js';
+import { RECEIVE_PHOTOS, REQUEST_PHOTOS, PREVIOUS_PHOTO, NEXT_PHOTO } from '../actions/photoActions.js';
 
-function photos(state = {}, action = null) {
+function photos(state = [], action = null) {
   switch (action.type) {
     case RECEIVE_PHOTOS:
       return Object.assign({}, state, action.photos);
@@ -18,13 +19,26 @@ function photos(state = {}, action = null) {
 
 function photoNavigator(state = {
   fetching: false,
-  currentPhoto: -1,
+  currentPhoto: 0,
+  count: 0,
 }, action = null) {
   switch (action.type) {
     case REQUEST_PHOTOS:
       return Object.assign({}, state, {fetching: true});
     case RECEIVE_PHOTOS:
-      return Object.assign({}, state, {fetching: false, updatedAt: new Date(), currentPhoto: 1});
+      return Object.assign({}, state, {
+        fetching: false,
+        updatedAt: new Date(),
+        currentPhoto: 0,
+        count: action.photos.length,
+      });
+    case NEXT_PHOTO:
+      let nextIndex = Math.min(state.currentPhoto + 1, state.count - 1);
+      return Object.assign({}, state, {currentPhoto: nextIndex});
+
+    case PREVIOUS_PHOTO:
+      let previousIndex = Math.max(state.currentPhoto - 1, 0);
+      return Object.assign({}, state, {currentPhoto: previousIndex});
 
     default :
       return state;
