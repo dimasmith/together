@@ -43,6 +43,13 @@ export default AmpersandView.extend({
         return this.currentPhoto >= this.count - 1;
       },
     },
+
+    index: {
+      deps: ['currentPhoto'],
+      fn: function() {
+        return this.currentPhoto + 1;
+      },
+    },
   },
 
   template,
@@ -64,6 +71,8 @@ export default AmpersandView.extend({
       type: 'booleanAttribute',
       name: 'disabled',
     },
+    index: '[data-hook=photos-index]',
+    count: '[data-hook=photos-count]',
   },
 
   onNextPhotoButtonClick(evt) {
