@@ -2,10 +2,9 @@
  * Main application page that includes manages subpages and regions
  */
 
-var AmpersandView = require('ampersand-view');
+import AmpersandView from 'ampersand-view';
+import mainPageTemplate from '../templates/mainPage.jade'
 
-var mainPageTemplate = require('../templates/mainPage.jade');
-
-module.exports = AmpersandView.extend({
+export default AmpersandView.extend({
   template: mainPageTemplate,
 });

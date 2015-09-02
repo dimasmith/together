@@ -1,15 +1,16 @@
 /**
  * Initial application file
  */
-var app = require('ampersand-app');
-var domready = require('domready');
+import app from 'ampersand-app';
+import domready from 'domready';
 
-var MainPage = require('./js/MainPage');
+import MainPage from './js/MainPage.js';
 
 app.extend({
 
-  init: function() {
-    this.mainView = new MainPage({el: document.body});
+  mainView: new MainPage({el: document.body}),
+
+  init() {
     this.mainView.render();
   },
 });
