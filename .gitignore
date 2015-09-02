@@ -1,0 +1,8 @@
+# build artifacts
+dist/
+
+# node modules
+node_modules/
+
+# ide
+.idea/

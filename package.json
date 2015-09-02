@@ -1,0 +1,32 @@
+{
+  "name": "together",
+  "version": "0.1.0",
+  "description": "Application for simultaneous photo viewing",
+  "main": "server.js",
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dimasmith/together.git"
+  },
+  "keywords": [
+    "node",
+    "collaboration",
+    "websocket",
+    "flux"
+  ],
+  "author": "Dmytro Kovalchuk <dimasmith@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dimasmith/together/issues"
+  },
+  "homepage": "https://github.com/dimasmith/together#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "socket.io": "^1.3.6"
+  },
+  "devDependencies": {
+    "jscs": "^2.1.1"
+  }
+}
