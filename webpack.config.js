@@ -9,7 +9,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jade$/, loader: 'jade-loader'},
-      { test: /\.js$/, exclude: '/node_modules/', loader: 'babel-loader'},
+      { test: /\.js$/, exclude: '/node_modules/', loader: 'babel-loader?optional=runtime'},
     ],
   },
 };
