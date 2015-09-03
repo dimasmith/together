@@ -1,3 +1,6 @@
+var webpack = require('webpack');
+var config = require('./config');
+
 module.exports = {
   context: __dirname + '/client',
   entry: './app',
@@ -12,4 +15,9 @@ module.exports = {
       { test: /\.js$/, exclude: '/node_modules/', loader: 'babel-loader?optional=runtime'},
     ],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      WEBSOCKET_ADDRESS: config.webSocketAddress,
+    }),
+  ],
 };

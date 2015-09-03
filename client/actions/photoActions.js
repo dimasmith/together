@@ -29,3 +29,11 @@ export function showPreviousPhoto() {
     type: PREVIOUS_PHOTO,
   };
 }
+
+export const SHOW_PHOTO = 'SHOW_PHOTO';
+export function showPhoto(index) {
+  return {
+    type: SHOW_PHOTO,
+    index,
+  };
+}

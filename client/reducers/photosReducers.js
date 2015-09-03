@@ -5,7 +5,7 @@
 import { combineReducers } from 'redux';
 import _ from 'lodash';
 
-import { RECEIVE_PHOTOS, REQUEST_PHOTOS, PREVIOUS_PHOTO, NEXT_PHOTO } from '../actions/photoActions.js';
+import { RECEIVE_PHOTOS, REQUEST_PHOTOS, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO } from '../actions/photoActions.js';
 
 function photos(state = [], action = null) {
   switch (action.type) {
@@ -39,6 +39,9 @@ function photoNavigator(state = {
     case PREVIOUS_PHOTO:
       let previousIndex = Math.max(state.currentPhoto - 1, 0);
       return Object.assign({}, state, {currentPhoto: previousIndex});
+
+    case SHOW_PHOTO:
+      return Object.assign({}, state, {currentPhoto: action.index});
 
     default :
       return state;

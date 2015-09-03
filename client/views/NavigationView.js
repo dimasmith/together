@@ -4,14 +4,18 @@
 import AmpersandView from 'ampersand-view';
 
 import {showNextPhoto, showPreviousPhoto} from '../actions/photoActions.js';
+import {broadcastSwitchPhoto} from '../sync/viewSynchronizer.js';
 import app from 'ampersand-app';
 import template from '../templates/views/navigation.jade';
+
+var socket = io.connect(window.location.href);
 
 export default AmpersandView.extend({
 
   initialize() {
     this.unsubscribeStore = app.store.subscribe(this.handleChanges.bind(this));
     this.listenTo(this, 'remove', this.cleanup);
+    this.listenTo(this, 'change:currentPhoto', (view, value) => broadcastSwitchPhoto(value));
   },
 
   cleanup() {
