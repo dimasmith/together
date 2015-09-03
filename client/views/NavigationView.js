@@ -3,8 +3,7 @@
  */
 import AmpersandView from 'ampersand-view';
 
-import {showNextPhoto, showPreviousPhoto} from '../actions/photoActions.js';
-import {broadcastSwitchPhoto} from '../sync/previewSyncClient.js';
+import {previousPhoto, nextPhoto} from '../actions/photoActions.js';
 import app from 'ampersand-app';
 import template from '../templates/views/navigation.jade';
 
@@ -14,7 +13,6 @@ export default AmpersandView.extend({
   initialize() {
     this.unsubscribeStore = app.store.subscribe(this.handleChanges.bind(this));
     this.listenTo(this, 'remove', this.cleanup);
-    this.listenTo(this, 'change:currentPhoto', (view, value) => broadcastSwitchPhoto(value)); // TODO: move to actions. View is not a proper place to call sync client
   },
 
   cleanup() {
@@ -80,12 +78,12 @@ export default AmpersandView.extend({
 
   onNextPhotoButtonClick(evt) {
     evt.preventDefault();
-    app.store.dispatch(showNextPhoto());
+    app.store.dispatch(nextPhoto());
   },
 
   onPreviousPhotoButtonClick(evt) {
     evt.preventDefault();
-    app.store.dispatch(showPreviousPhoto());
+    app.store.dispatch(previousPhoto());
   },
 
 });
