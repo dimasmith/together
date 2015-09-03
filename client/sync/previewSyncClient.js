@@ -3,7 +3,7 @@
  */
 import * as Protocol from '../../common/previewProtocol.js';
 import app from 'ampersand-app';
-import {showPhoto, receivePhotos} from '../actions/photoActions.js';
+import {showPhoto, receivePreview} from '../actions/photoActions.js';
 
 var socket = io.connect('http://localhost:8000'); // TODO: replace connection URL with variable injection
 
@@ -12,7 +12,8 @@ export function broadcastSwitchPhoto(currentPhoto) {
 }
 
 function initializePreview(data) {
-  app.store.dispatch(receivePhotos(JSON.parse(data).photos));
+  var preview = JSON.parse(data);
+  app.store.dispatch(receivePreview(preview.photos, preview.navigation.index));
 }
 
 function changePhoto(data) {

@@ -4,11 +4,11 @@
 
 import { combineReducers } from 'redux';
 
-import { RECEIVE_PHOTOS, REQUEST_PHOTOS, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO } from '../actions/photoActions.js';
+import { RECEIVE_PREVIEW, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO } from '../actions/photoActions.js';
 
 function photos(state = [], action = null) {
   switch (action.type) {
-    case RECEIVE_PHOTOS:
+    case RECEIVE_PREVIEW:
       return Object.assign({}, state, action.photos);
 
     default :
@@ -22,13 +22,11 @@ function photoNavigator(state = {
   count: 0,
 }, action = null) {
   switch (action.type) {
-    case REQUEST_PHOTOS:
-      return Object.assign({}, state, {fetching: true});
-    case RECEIVE_PHOTOS:
+    case RECEIVE_PREVIEW:
       return Object.assign({}, state, {
         fetching: false,
         updatedAt: new Date(),
-        currentPhoto: 0,
+        currentPhoto: action.index,
         count: action.photos.length,
       });
     case NEXT_PHOTO:
