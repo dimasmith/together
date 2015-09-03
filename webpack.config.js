@@ -17,7 +17,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      WEBSOCKET_ADDRESS: config.webSocketAddress,
+      WEBSOCKET_ADDRESS: '"' + config.webSocketAddress + '"',
     }),
   ],
 };

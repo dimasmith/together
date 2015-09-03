@@ -5,7 +5,7 @@ import * as Protocol from '../../common/previewProtocol.js';
 import app from 'ampersand-app';
 import {showPhoto, receivePreview} from '../actions/photoActions.js';
 
-var socket = io.connect('http://localhost:8000'); // TODO: replace connection URL with variable injection
+var socket = io.connect(WEBSOCKET_ADDRESS);
 
 export function broadcastSwitchPhoto(currentPhoto) {
   socket.emit(Protocol.CHANGE_PHOTO, JSON.stringify({currentPhoto}));
