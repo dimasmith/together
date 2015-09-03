@@ -3,7 +3,6 @@
  */
 
 import { combineReducers } from 'redux';
-import _ from 'lodash';
 
 import { RECEIVE_PHOTOS, REQUEST_PHOTOS, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO } from '../actions/photoActions.js';
 

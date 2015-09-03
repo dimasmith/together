@@ -6,19 +6,13 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var handlePreviews = require('./server/previewController');
 
 var config = require('./config');
 
 app.use(express.static('dist'));
 
-// configure websocket handlers
-io.on('connection', function(socket) {
-  console.log('connected');
-  socket.on('SHOW_PHOTO', function(data) {
-    console.log('Switch photo, emit SYNC evet', data);
-    socket.broadcast.emit('SYNC', data);
-  });
-});
+handlePreviews(io);
 
 console.info('Starting server on', config.host, config.port);
 server.listen(config.port, function() {

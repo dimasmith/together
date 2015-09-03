@@ -24,14 +24,6 @@ app.extend({
   init() {
     this.mainView.render();
     this.mainView.showPage(new PhotoPage({store: this.store}));
-    this.store.dispatch(PhotoActions.requestPhotos());
-    this.store.dispatch(PhotoActions.receivePhotos(
-      [
-        {id: 1, url: 'http://lorempixel.com/800/600/people', date: new Date()},
-        {id: 2, url: 'http://lorempixel.com/800/600/sports', date: new Date()},
-        {id: 3, url: 'http://lorempixel.com/800/600/abstract', date: new Date()},
-      ]
-    ));
   },
 });
 
