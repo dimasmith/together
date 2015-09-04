@@ -13,6 +13,8 @@ import ThumbnailsPage from './pages/ThumbnailsPage.js';
 import rootReducer from './reducers/photosReducers.js';
 import {initializePreview}  from './actions/photoActions.js';
 
+import * as Stylesheet from './stylesheets/together.scss';
+
 const createStoreWithMiddleware = applyMiddleware(
   loggerMiddleware, thunkMiddleware
 )(createStore);
@@ -25,8 +27,8 @@ app.extend({
   init() {
     this.mainView.render();
 
-    //this.mainView.showPage(new PhotoPage());
-    this.mainView.showPage(new ThumbnailsPage());
+    this.mainView.showPage(new PhotoPage());
+    //this.mainView.showPage(new ThumbnailsPage());
 
     this.store.dispatch(initializePreview());
   },

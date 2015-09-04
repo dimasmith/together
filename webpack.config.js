@@ -13,6 +13,7 @@ module.exports = {
     loaders: [
       { test: /\.jade$/, loader: 'jade-loader'},
       { test: /\.js$/, exclude: '/node_modules/', loader: 'babel-loader?optional=runtime'},
+      { test: /\.scss$/, loader: 'style!css!sass'},
     ],
   },
   plugins: [

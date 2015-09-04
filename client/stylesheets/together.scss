@@ -1,0 +1,26 @@
+
+.b-photo__image {
+  margin-top: 32px;
+  margin-bottom: 32px;
+  max-height: 720px;
+}
+
+.b-photo__frame {
+  background-color: #555555;
+  text-align: center;
+}
+
+.b-thumbnails__container:after {
+}
+
+.b-thumbnail {
+  width: 320px;
+  height: 240px;
+  float: left;
+  margin: 5px;
+}
+
+.b-thumbnail__image {
+  width: 100%;
+  height: 100%;
+}
