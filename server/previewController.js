@@ -26,10 +26,11 @@ PreviewController.prototype.sendPreview = function() {
 };
 
 PreviewController.prototype.onChangePhoto = function(data) {
-  preview = Preview.setCurrentPhotoIndex(preview, JSON.parse(data).currentPhoto);
+  var response = JSON.parse(data);
+  preview = Preview.setCurrentPhotoIndex(preview, response.index);
   this.socket.broadcast.emit(
     PreviewProtocol.CHANGE_PHOTO,
-    JSON.stringify({currentPhoto: preview.navigation.index})
+    JSON.stringify({index: preview.navigation.index})
   );
 };
 

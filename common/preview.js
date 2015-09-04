@@ -33,18 +33,18 @@ module.exports.setPhotos = function(preview, photos) {
 };
 
 module.exports.setCurrentPhotoIndex = function(preview, index) {
-  return _.extend({}, preview, {
-    navigation: {
-      index: index,
-      viewMode: PHOTO_MODE,
-    },
+  var clone = _.extend({}, preview);
+  _.extend(clone.navigation, {
+    index: index,
+    viewMode: PHOTO_MODE,
   });
+  return clone;
 };
 
 module.exports.setViewMode = function(preview, viewMode) {
-  return _.extend({}, preview, {
-    navigation: {
-      viewMode: viewMode,
-    },
+  var clone = _.extend({}, preview);
+  _.extend(clone.navigation, {
+    viewMode: viewMode,
   });
+  return clone;
 };

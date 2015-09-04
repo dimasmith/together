@@ -20,6 +20,7 @@ var PhotosCollection = AmpersandCollection.extend({
   model: Photo,
 });
 
+//noinspection JSUnusedGlobalSymbols
 export default AmpersandView.extend({
 
   autoRender: true,
@@ -37,13 +38,16 @@ export default AmpersandView.extend({
   },
 
   initialize() {
-    this.unsubscribeStore = app.store.subscribe(
-      () => this.handleChange(app.store.getState()));
-    this.listenTo(this, 'remove', this.unsubscribeStore);
-    this.photosCollection = new PhotosCollection(app.store.getState().photos);
+    this.unsubscribeStore = app.store.subscribe(() => this.update());
+    this.on('remove', this.unsubscribeStore);
+    this.photosCollection = new PhotosCollection();
   },
 
-  handleChange(state) {
+  update() {
+    this.setState(app.store.getState());
+  },
+
+  setState(state) {
     let photos = state.photos;
     this.photosCollection.reset(photos);
   },
@@ -51,5 +55,6 @@ export default AmpersandView.extend({
   render() {
     this.renderWithTemplate();
     this.renderCollection(this.photosCollection, ThumbnailView, '.b-thumbnails__container');
+    this.update();
   },
 });

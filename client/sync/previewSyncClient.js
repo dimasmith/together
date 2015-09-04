@@ -8,10 +8,10 @@ import {showThumbnails} from '../actions/navigationActions.js';
 
 var socket = io.connect(WEBSOCKET_ADDRESS);
 
-export function broadcastSwitchPhoto(currentPhoto) {
+export function broadcastSwitchPhoto(index) {
   socket.emit(
     Protocol.CHANGE_PHOTO,
-    JSON.stringify({currentPhoto})
+    JSON.stringify({index})
   );
 }
 
@@ -20,7 +20,7 @@ export function loadPreview() {
   return new Promise((resolve) => {
     socket.on(
       Protocol.INITIALIZE_PREVIEW,
-      data => resolve(JSON.parse(data))
+        data => resolve(JSON.parse(data))
     );
   });
 }
@@ -30,7 +30,8 @@ export function broadcastOpenThumbnails() {
 }
 
 function changePhoto(data) {
-  app.store.dispatch(showPhoto(JSON.parse(data).currentPhoto));
+  var response = JSON.parse(data);
+  app.store.dispatch(showPhoto(response.index));
 }
 
 socket.on(Protocol.CHANGE_PHOTO, changePhoto);

@@ -7,6 +7,7 @@ import NavigationView from '../views/NavigationView.js';
 import app from 'ampersand-app';
 import template from '../templates/photoPage.jade';
 
+//noinspection JSUnusedGlobalSymbols
 export default AmpersandView.extend({
 
   autoRender: true,
@@ -24,18 +25,21 @@ export default AmpersandView.extend({
   },
 
   initialize() {
-    this.unsubscribeStore = app.store.subscribe(
-      () => this.handleChange(app.store.getState()));
+    this.unsubscribeStore = app.store.subscribe(() => this.update());
     this.on('remove', this.unsubscribeStore);
   },
 
   render() {
     this.renderWithTemplate();
-    this.handleChange(app.store.getState());
+    this.update();
   },
 
-  handleChange(state) {
-    let photo = state.photos[state.photoNavigator.currentPhoto];
+  update() {
+    this.setState(app.store.getState());
+  },
+
+  setState(state) {
+    let photo = state.photos[state.navigation.index];
     if (photo) {
       this.url = photo.url;
     }

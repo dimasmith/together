@@ -27,12 +27,16 @@ export default AmpersandView.extend({
   },
 
   initialize() {
-    this.unsubscribeStore = app.store.subscribe(() => this.handleChanges(app.store.getState()));
+    this.unsubscribeStore = app.store.subscribe(() => this.update());
     this.on('change:viewMode', this.changeViewMode);
   },
 
-  handleChanges(state) {
-    this.viewMode = state.viewMode || THUMBNAILS_MODE;
+  update() {
+    this.setState(app.store.getState());
+  },
+
+  setState(state) {
+    this.viewMode = state.navigation.viewMode || THUMBNAILS_MODE;
   },
 
   changeViewMode(view, viewMode) {
@@ -51,9 +55,8 @@ export default AmpersandView.extend({
 
   render() {
     this.renderWithTemplate();
-
-    this.pageContainer = this.queryByHook('page-container');
-    this.viewSwitcher = new ViewSwitcher(this.pageContainer);
+    this.viewSwitcher = new ViewSwitcher(this.queryByHook('page-container'));
+    this.update();
   },
 
   showPage(view) {

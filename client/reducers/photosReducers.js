@@ -10,61 +10,47 @@ import {SHOW_THUMBNAILS} from '../actions/navigationActions.js';
 function photos(state = [], action = null) {
   switch (action.type) {
     case RECEIVE_PREVIEW:
-      return action.photos;
+      return action.preview.photos;
 
     default :
       return state;
   }
 }
 
-function photoNavigator(state = {
+function navigation(state = {
   fetching: false,
-  currentPhoto: 0,
+  index: 0,
   count: 0,
+  viewMode: 'THUMBNAILS',
 }, action = null) {
   switch (action.type) {
     case RECEIVE_PREVIEW:
-      return Object.assign({}, state, {
-        fetching: false,
-        updatedAt: new Date(),
-        currentPhoto: action.index,
-        count: action.photos.length,
-      });
+      return Object.assign({}, state,
+        action.preview.navigation,
+        { fetching: false }
+      );
     case NEXT_PHOTO:
-      let nextIndex = Math.min(state.currentPhoto + 1, state.count - 1);
-      return Object.assign({}, state, {currentPhoto: nextIndex});
+      let nextIndex = Math.min(state.index + 1, state.count - 1);
+      return Object.assign({}, state, {index: nextIndex, viewMode: 'PHOTO'});
 
     case PREVIOUS_PHOTO:
-      let previousIndex = Math.max(state.currentPhoto - 1, 0);
-      return Object.assign({}, state, {currentPhoto: previousIndex});
+      let previousIndex = Math.max(state.index - 1, 0);
+      return Object.assign({}, state, {index: previousIndex, viewMode: 'PHOTO'});
 
     case SHOW_PHOTO:
-      return Object.assign({}, state, {currentPhoto: action.index});
+      return Object.assign({}, state, {index: action. index, viewMode: 'PHOTO'});
+
+    case SHOW_THUMBNAILS:
+      return Object.assign({}, state, {viewMode: 'THUMBNAILS'});
 
     default :
-      return state;
-  }
-}
-
-function viewMode(state = 'THUMBNAILS', action = null) {
-  switch (action.type) {
-    case PREVIOUS_PHOTO:
-    case NEXT_PHOTO:
-    case SHOW_PHOTO:
-      return 'PHOTO';
-    case RECEIVE_PREVIEW:
-      return action.viewMode;
-    case SHOW_THUMBNAILS:
-      return 'THUMBNAILS';
-    default:
       return state;
   }
 }
 
 const rootReducer = combineReducers({
   photos,
-  photoNavigator,
-  viewMode,
+  navigation,
 });
 
 export default rootReducer;

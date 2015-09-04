@@ -11,12 +11,10 @@ function requestPreview() {
 }
 
 export const RECEIVE_PREVIEW = 'RECEIVE_PREVIEW';
-function receivePreview(photos, index, viewMode) {
+function receivePreview(preview) {
   return {
     type: RECEIVE_PREVIEW,
-    photos,
-    index,
-    viewMode,
+    preview,
   };
 }
 
@@ -43,23 +41,23 @@ export function showPhoto(index) {
 }
 
 function hasNextPhoto(state) {
-  return state.photoNavigator.currentPhoto <= state.photoNavigator.count - 1;
+  return state.navigation.index <= state.navigation.count - 1;
 }
 
 function hasPreviousPhoto(state) {
-  return state.photoNavigator.currentPhoto >= 0;
+  return state.navigation.index >= 0;
 }
 
 function notifyNextPhoto(state) {
-  PreviewClient.broadcastSwitchPhoto(state.photoNavigator.currentPhoto + 1);
+  PreviewClient.broadcastSwitchPhoto(state.navigation.index + 1);
 }
 
 function notifyPreviousPhoto(state) {
-  PreviewClient.broadcastSwitchPhoto(state.photoNavigator.currentPhoto - 1);
+  PreviewClient.broadcastSwitchPhoto(state.navigation.index - 1);
 }
 
 function isIndexInBounds(state, index) {
-  return index > 0 && index < state.photos.length;
+  return index >= 0 && index < state.photos.length;
 }
 
 function notifyPhotoIndex(index) {
@@ -104,11 +102,7 @@ export function initializePreview() {
     dispatch(requestPreview());
 
     return PreviewClient.loadPreview()
-      .then(data => dispatch(receivePreview(
-        data.photos,
-        data.navigation.index,
-        data.navigation.viewMode)
-      ))
+      .then(data => dispatch(receivePreview(data)))
       .catch(err => console.error(err));
   };
 }

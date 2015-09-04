@@ -11,52 +11,48 @@ import template from '../templates/views/navigation.jade';
 export default AmpersandView.extend({
 
   initialize() {
-    this.unsubscribeStore = app.store.subscribe(this.updateState.bind(this));
-    this.listenTo(this, 'remove', this.cleanup);
+    this.unsubscribeStore = app.store.subscribe(() => this.update());
+    this.on('remove', this.unsubscribeStore);
   },
 
-  cleanup() {
-    this.unsubscribeStore();
-  },
-
-  updateState() {
+  update() {
     this.setState(app.store.getState());
   },
 
   setState(state) {
-    this.count = state.photoNavigator.count || 0;
-    this.currentPhoto = state.photoNavigator.currentPhoto || 0;
+    this.count = state.navigation.count || 0;
+    this.index = state.navigation.index || 0;
   },
 
   render() {
     this.renderWithTemplate();
-    this.updateState();
+    this.update();
   },
 
   props: {
     count: ['number', true, 0],
-    currentPhoto: ['number', true, 0],
+    index: ['number', true, 0],
   },
 
   derived: {
     hasNoPrevious: {
-      deps: ['count', 'currentPhoto'],
+      deps: ['count', 'index'],
       fn: function() {
-        return this.currentPhoto <= 0;
+        return this.index <= 0;
       },
     },
 
     hasNoNext: {
-      deps: ['count', 'currentPhoto'],
+      deps: ['count', 'index'],
       fn: function() {
-        return this.currentPhoto >= this.count - 1;
+        return this.index >= this.count - 1;
       },
     },
 
-    index: {
-      deps: ['currentPhoto'],
+    humanReadableIndex: {
+      deps: ['index'],
       fn: function() {
-        return this.currentPhoto + 1;
+        return this.index + 1;
       },
     },
   },
@@ -80,7 +76,7 @@ export default AmpersandView.extend({
       type: 'booleanAttribute',
       name: 'disabled',
     },
-    index: '[data-hook=photos-index]',
+    humanReadableIndex: '[data-hook=photos-index]',
     count: '[data-hook=photos-count]',
   },
 
