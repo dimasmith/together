@@ -5,6 +5,8 @@ var _ = require('lodash');
 
 var PreviewProtocol = require('../common/previewProtocol');
 
+const THUMBNAILS_MODE = 'THUMBNAILS';
+
 var navigation = {
   index: 0,
   count: 0,
@@ -35,10 +37,19 @@ function setCurrentPhotoIndex(preview, index) {
   });
 }
 
+function setViewMode(preview, viewMode) {
+  return _.extend({}, preview, {
+    navigation: {
+      viewMode: viewMode,
+    },
+  });
+}
+
 var PreviewController = function(socket) {
   this.socket = socket;
   socket.on(PreviewProtocol.REQUEST_PREVIEW, this.sendPreview.bind(this));
   socket.on(PreviewProtocol.CHANGE_PHOTO, this.onChangePhoto.bind(this));
+  socket.on(PreviewProtocol.SHOW_THUMBNAILS, this.onShowThumbnails.bind(this));
 };
 
 PreviewController.start = function(socket) {
@@ -56,6 +67,13 @@ PreviewController.prototype.onChangePhoto = function(data) {
   this.socket.broadcast.emit(
     PreviewProtocol.CHANGE_PHOTO,
     JSON.stringify({currentPhoto: preview.navigation.index})
+  );
+};
+
+PreviewController.prototype.onShowThumbnails = function(data) {
+  preview = setViewMode(preview, THUMBNAILS_MODE);
+  this.socket.broadcast.emit(
+    PreviewProtocol.SHOW_THUMBNAILS
   );
 };
 

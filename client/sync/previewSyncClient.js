@@ -4,6 +4,7 @@
 import * as Protocol from '../../common/previewProtocol.js';
 import app from 'ampersand-app';
 import {showPhoto} from '../actions/photoActions.js';
+import {showThumbnails} from '../actions/navigationActions.js';
 
 var socket = io.connect(WEBSOCKET_ADDRESS);
 
@@ -33,3 +34,4 @@ function changePhoto(data) {
 }
 
 socket.on(Protocol.CHANGE_PHOTO, changePhoto);
+socket.on(Protocol.SHOW_THUMBNAILS, () => app.dispatchAction(showThumbnails()));

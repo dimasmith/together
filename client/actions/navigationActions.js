@@ -5,7 +5,7 @@ import * as SyncClient from '../sync/previewSyncClient.js';
 import app from 'ampersand-app';
 
 export const SHOW_THUMBNAILS = 'SHOW_THUMBNAILS';
-function showThumbnails() {
+export function showThumbnails() {
   return {
     type: SHOW_THUMBNAILS,
   };

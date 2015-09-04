@@ -24,8 +24,8 @@ export default AmpersandView.extend({
   },
 
   setState(state) {
-    this.count = state.photoNavigator.count;
-    this.currentPhoto = state.photoNavigator.currentPhoto;
+    this.count = state.photoNavigator.count || 0;
+    this.currentPhoto = state.photoNavigator.currentPhoto || 0;
   },
 
   render() {
