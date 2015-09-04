@@ -11,7 +11,7 @@ import template from '../templates/views/navigation.jade';
 export default AmpersandView.extend({
 
   initialize() {
-    this.unsubscribeStore = app.store.subscribe(this.handleChanges.bind(this));
+    this.unsubscribeStore = app.store.subscribe(this.updateState.bind(this));
     this.listenTo(this, 'remove', this.cleanup);
   },
 
@@ -19,10 +19,18 @@ export default AmpersandView.extend({
     this.unsubscribeStore();
   },
 
-  handleChanges() {
-    var state = app.store.getState();
+  updateState() {
+    this.setState(app.store.getState());
+  },
+
+  setState(state) {
     this.count = state.photoNavigator.count;
     this.currentPhoto = state.photoNavigator.currentPhoto;
+  },
+
+  render() {
+    this.renderWithTemplate();
+    this.updateState();
   },
 
   props: {

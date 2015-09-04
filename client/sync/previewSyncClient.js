@@ -24,6 +24,10 @@ export function loadPreview() {
   });
 }
 
+export function broadcastOpenThumbnails() {
+  socket.emit(Protocol.SHOW_THUMBNAILS);
+}
+
 function changePhoto(data) {
   app.store.dispatch(showPhoto(JSON.parse(data).currentPhoto));
 }

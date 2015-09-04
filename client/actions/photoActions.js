@@ -84,9 +84,10 @@ export function initializePreview() {
     dispatch(requestPreview());
 
     return PreviewClient.loadPreview()
-      .then((data) => dispatch(receivePreview(
+      .then(data => dispatch(receivePreview(
         data.photos,
         data.navigation.index)
-      ));
+      ))
+      .catch(err => console.error(err));
   };
 }

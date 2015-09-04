@@ -5,6 +5,7 @@
 import { combineReducers } from 'redux';
 
 import { RECEIVE_PREVIEW, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO } from '../actions/photoActions.js';
+import {SHOW_THUMBNAILS} from '../actions/navigationActions.js';
 
 function photos(state = [], action = null) {
   switch (action.type) {
@@ -45,9 +46,24 @@ function photoNavigator(state = {
   }
 }
 
+function viewMode(state = 'THUMBNAILS', action = null) {
+  switch (action.type) {
+    case PREVIOUS_PHOTO:
+    case NEXT_PHOTO:
+    case SHOW_PHOTO:
+    case RECEIVE_PREVIEW:
+      return 'PHOTO';
+    case SHOW_THUMBNAILS:
+      return 'THUMBNAILS';
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   photos,
   photoNavigator,
+  viewMode,
 });
 
 export default rootReducer;

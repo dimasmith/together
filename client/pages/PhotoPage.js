@@ -29,6 +29,11 @@ export default AmpersandView.extend({
     this.on('remove', this.unsubscribeStore);
   },
 
+  render() {
+    this.renderWithTemplate();
+    this.handleChange(app.store.getState());
+  },
+
   handleChange(state) {
     let photo = state.photos[state.photoNavigator.currentPhoto];
     if (photo) {

@@ -15,6 +15,8 @@ import {initializePreview}  from './actions/photoActions.js';
 
 import * as Stylesheet from './stylesheets/together.scss';
 
+import PatchedView from './patch/AmpersandView.js';
+
 const createStoreWithMiddleware = applyMiddleware(
   loggerMiddleware, thunkMiddleware
 )(createStore);
@@ -22,15 +24,15 @@ const createStoreWithMiddleware = applyMiddleware(
 app.extend({
 
   store: createStoreWithMiddleware(rootReducer),
-  mainView: new MainPage({el: document.body}),
 
   init() {
+    this.mainView = new MainPage({el: document.body}),
     this.mainView.render();
-
-    this.mainView.showPage(new PhotoPage());
-    //this.mainView.showPage(new ThumbnailsPage());
-
     this.store.dispatch(initializePreview());
+  },
+
+  dispatchAction: function(action) {
+    this.store.dispatch(action);
   },
 });
 
