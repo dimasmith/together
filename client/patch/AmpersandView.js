@@ -11,6 +11,7 @@ AmpersandView.prototype._remove = function() {
   if (this.el && this.el.parentNode) this.el.parentNode.removeChild(this.el);
   if (this._subviews) invoke(flatten(this._subviews), 'remove');
   this.stopListening();
+  this.trigger('remove');
 };
 
 export default AmpersandView;

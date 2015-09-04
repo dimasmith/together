@@ -2,8 +2,11 @@
  * Displays single photo
  */
 import AmpersandView from 'ampersand-view';
+import Combokeys from 'combokeys';
 
 import NavigationView from '../views/NavigationView.js';
+import {openThumbnails} from '../actions/navigationActions.js';
+import {nextPhoto, previousPhoto} from '../actions/photoActions.js';
 import app from 'ampersand-app';
 import template from '../templates/photoPage.jade';
 
@@ -27,6 +30,13 @@ export default AmpersandView.extend({
   initialize() {
     this.unsubscribeStore = app.store.subscribe(() => this.update());
     this.on('remove', this.unsubscribeStore);
+
+    this.combokeys = new Combokeys(document.documentElement);
+    this.combokeys.bind('left', () => app.dispatchAction(previousPhoto()));
+    this.combokeys.bind('right', () => app.dispatchAction(nextPhoto()));
+    this.combokeys.bind('esc', () => app.dispatchAction(openThumbnails()));
+    this.combokeys.bind('up', () => app.dispatchAction(openThumbnails()));
+    this.on('remove', () => this.combokeys.detach());
   },
 
   render() {
