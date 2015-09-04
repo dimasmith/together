@@ -25,7 +25,9 @@
   "homepage": "https://github.com/dimasmith/together#readme",
   "dependencies": {
     "ampersand-app": "^1.0.4",
+    "ampersand-collection": "^1.4.5",
     "ampersand-router": "^3.0.2",
+    "ampersand-state": "^4.5.6",
     "ampersand-view": "^8.0.1",
     "ampersand-view-switcher": "^2.0.0",
     "domready": "^1.0.8",

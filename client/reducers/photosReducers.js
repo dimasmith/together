@@ -9,7 +9,7 @@ import { RECEIVE_PREVIEW, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO } from '../acti
 function photos(state = [], action = null) {
   switch (action.type) {
     case RECEIVE_PREVIEW:
-      return Object.assign({}, state, action.photos);
+      return action.photos;
 
     default :
       return state;

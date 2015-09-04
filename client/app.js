@@ -9,6 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 
 import MainPage from './pages/MainPage.js';
 import PhotoPage from './pages/PhotoPage.js';
+import ThumbnailsPage from './pages/ThumbnailsPage.js';
 import rootReducer from './reducers/photosReducers.js';
 import {initializePreview}  from './actions/photoActions.js';
 
@@ -23,7 +24,9 @@ app.extend({
 
   init() {
     this.mainView.render();
-    this.mainView.showPage(new PhotoPage({store: this.store}));
+
+    //this.mainView.showPage(new PhotoPage());
+    this.mainView.showPage(new ThumbnailsPage());
 
     this.store.dispatch(initializePreview());
   },

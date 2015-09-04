@@ -5,7 +5,6 @@
 import AmpersandView from 'ampersand-view';
 import ViewSwitcher from 'ampersand-view-switcher';
 
-import NavigationView from '../views/NavigationView.js';
 import mainPageTemplate from '../templates/mainPage.jade';
 
 export default AmpersandView.extend({
@@ -30,14 +29,5 @@ export default AmpersandView.extend({
 
   showPage(view) {
     this.viewSwitcher.set(view);
-  },
-
-  subviews: {
-    navigation: {
-      selector: 'footer',
-      prepareView(el) {
-        return new NavigationView({el: el});
-      },
-    },
   },
 });
