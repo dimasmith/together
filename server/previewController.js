@@ -3,47 +3,10 @@
  */
 var _ = require('lodash');
 
+var Preview = require('../common/preview');
 var PreviewProtocol = require('../common/previewProtocol');
 
-const THUMBNAILS_MODE = 'THUMBNAILS';
-
-var navigation = {
-  index: 0,
-  count: 0,
-  updatedAt: new Date(),
-};
-
-var preview = {
-  photos: [],
-  navigation: navigation,
-};
-
-function setPhotos(preview, photos) {
-  return _.extend({}, preview, {
-    photos: photos,
-    navigation: {
-      index: 0,
-      count: photos.length,
-      updatedAt: new Date(),
-    },
-  });
-}
-
-function setCurrentPhotoIndex(preview, index) {
-  return _.extend({}, preview, {
-    navigation: {
-      index: index,
-    },
-  });
-}
-
-function setViewMode(preview, viewMode) {
-  return _.extend({}, preview, {
-    navigation: {
-      viewMode: viewMode,
-    },
-  });
-}
+var preview = Preview.createPreview();
 
 var PreviewController = function(socket) {
   this.socket = socket;
@@ -63,22 +26,22 @@ PreviewController.prototype.sendPreview = function() {
 };
 
 PreviewController.prototype.onChangePhoto = function(data) {
-  preview = setCurrentPhotoIndex(preview, JSON.parse(data).currentPhoto);
+  preview = Preview.setCurrentPhotoIndex(preview, JSON.parse(data).currentPhoto);
   this.socket.broadcast.emit(
     PreviewProtocol.CHANGE_PHOTO,
     JSON.stringify({currentPhoto: preview.navigation.index})
   );
 };
 
-PreviewController.prototype.onShowThumbnails = function(data) {
-  preview = setViewMode(preview, THUMBNAILS_MODE);
+PreviewController.prototype.onShowThumbnails = function() {
+  preview = Preview.setViewMode(preview, Preview.THUMBNAILS_MODE);
   this.socket.broadcast.emit(
     PreviewProtocol.SHOW_THUMBNAILS
   );
 };
 
 function handlePreviews(io, previewLoader) {
-  preview = setPhotos(preview, previewLoader.loadPhotos());
+  preview = Preview.setPhotos(preview, previewLoader.loadPhotos());
 
   io.on('connection', PreviewController.start);
 }

@@ -11,11 +11,12 @@ function requestPreview() {
 }
 
 export const RECEIVE_PREVIEW = 'RECEIVE_PREVIEW';
-function receivePreview(photos, index) {
+function receivePreview(photos, index, viewMode) {
   return {
     type: RECEIVE_PREVIEW,
     photos,
     index,
+    viewMode,
   };
 }
 
@@ -105,7 +106,8 @@ export function initializePreview() {
     return PreviewClient.loadPreview()
       .then(data => dispatch(receivePreview(
         data.photos,
-        data.navigation.index)
+        data.navigation.index,
+        data.navigation.viewMode)
       ))
       .catch(err => console.error(err));
   };

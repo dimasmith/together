@@ -51,8 +51,9 @@ function viewMode(state = 'THUMBNAILS', action = null) {
     case PREVIOUS_PHOTO:
     case NEXT_PHOTO:
     case SHOW_PHOTO:
-    case RECEIVE_PREVIEW:
       return 'PHOTO';
+    case RECEIVE_PREVIEW:
+      return action.viewMode;
     case SHOW_THUMBNAILS:
       return 'THUMBNAILS';
     default:
