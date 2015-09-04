@@ -15,7 +15,17 @@ export default AmpersandView.extend({
     this.renderWithTemplate();
 
     this.pageContainer = this.queryByHook('page-container');
-    this.viewSwitcher = new ViewSwitcher(this.pageContainer, {});
+    this.viewSwitcher = new ViewSwitcher(this.pageContainer, {
+      hide(oldView) {
+
+        // workaround for view removal issue.
+        oldView.remove = function() {
+          if (this.el && this.el.parentNode) this.el.parentNode.removeChild(this.el);
+          if (this._subviews) invoke(flatten(this._subviews), 'remove');
+          this.stopListening();
+        };
+      },
+    });
   },
 
   showPage(view) {
