@@ -3,7 +3,7 @@
  */
 import AmpersandView from 'ampersand-view';
 
-import {showPhoto} from '../actions/photoActions.js';
+import {switchToPhoto} from '../actions/photoActions.js';
 import template from '../templates/views/thumbnailView.jade';
 import app from 'ampersand-app';
 
@@ -18,7 +18,7 @@ export default AmpersandView.extend({
   onImageClick(evt) {
     evt.preventDefault();
     let index = this.collection.indexOf(this.model);
-    app.dispatchAction(showPhoto(index));
+    app.dispatchAction(switchToPhoto(index));
   },
 
   bindings: {

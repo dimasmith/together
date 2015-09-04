@@ -57,6 +57,14 @@ function notifyPreviousPhoto(state) {
   PreviewClient.broadcastSwitchPhoto(state.photoNavigator.currentPhoto - 1);
 }
 
+function isIndexInBounds(state, index) {
+  return index > 0 && index < state.photos.length;
+}
+
+function notifyPhotoIndex(index) {
+  PreviewClient.broadcastSwitchPhoto(index);
+}
+
 export function nextPhoto() {
   return (dispatch, getState) => {
     if (hasNextPhoto(getState())) {
@@ -73,6 +81,17 @@ export function previousPhoto() {
     if (hasPreviousPhoto(getState())) {
       notifyPreviousPhoto(getState());
       dispatch(showPreviousPhoto());
+    } else {
+      return Promise.resolve();
+    }
+  };
+}
+
+export function switchToPhoto(index) {
+  return (dispatch, getState) => {
+    if (isIndexInBounds(getState(), index)) {
+      notifyPhotoIndex(index);
+      dispatch(showPhoto(index));
     } else {
       return Promise.resolve();
     }

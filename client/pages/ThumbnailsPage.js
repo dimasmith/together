@@ -46,7 +46,6 @@ export default AmpersandView.extend({
   handleChange(state) {
     let photos = state.photos;
     this.photosCollection.reset(photos);
-    console.info(state);
   },
 
   render() {
