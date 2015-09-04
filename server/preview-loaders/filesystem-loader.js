@@ -4,6 +4,7 @@
 var fs = require('fs');
 
 const DOWNLOAD_PREFIX = '/photos/';
+const IMAGE_FILE_REGEX = /(jpg|png|jpeg)$/i;
 /**
  * Create loader which loads photos from filesystem.
  * It expects server to serve photos from under '/photos' path.
@@ -16,7 +17,8 @@ var LoremImageLoader = function(config) {
 
 LoremImageLoader.prototype.loadPhotos = function() {
   var filenames = fs.readdirSync(this.photosDir);
-  var urls = filenames.map(prefixFilename);
+  var imageFilenames = filenames.filter(imageFilesOnly);
+  var urls = imageFilenames.map(prefixFilename);
   return urls.map(toPhotoObjects);
 };
 
@@ -29,6 +31,10 @@ function toPhotoObjects(url) {
     url: url,
     date: new Date(),
   };
+}
+
+function imageFilesOnly(filename) {
+  return IMAGE_FILE_REGEX.test(filename);
 }
 
 module.exports = LoremImageLoader;
