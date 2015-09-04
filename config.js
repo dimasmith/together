@@ -14,4 +14,8 @@ module.exports = {
   development: development,
   proxyPort: proxyPort,
   webSocketAddress: webSocketAddress,
+  previewLoader: {
+    type: 'loremimage',
+    config: {},
+  },
 };

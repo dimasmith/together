@@ -7,12 +7,18 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var handlePreviews = require('./server/previewController');
+var PreviewLoaderFactory = require('./server/PreviewLoaderFactory');
 
 var config = require('./config');
 
 app.use(express.static('dist'));
 
-handlePreviews(io);
+var previewLoader = PreviewLoaderFactory.create(
+  config.previewLoader.type,
+  config.previewLoader.config
+);
+
+handlePreviews(io, previewLoader);
 
 console.info('Starting server on', config.host, config.port);
 server.listen(config.port, function() {

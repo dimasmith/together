@@ -1,34 +1,39 @@
 /**
  * Control previews for all users
  */
-var PreviewProtocol = require('../common/previewProtocol');
+var _ = require('lodash');
 
-const photos = [
-  {url: 'http://lorempixel.com/800/600/abstract', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/animals', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/business', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/cats', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/city', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/food', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/nightlife', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/fashion', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/people', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/nature', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/sports', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/technics', date: new Date()},
-  {url: 'http://lorempixel.com/800/600/transport', date: new Date()},
-];
+var PreviewProtocol = require('../common/previewProtocol');
 
 var navigation = {
   index: 0,
-  count: photos.length,
+  count: 0,
   updatedAt: new Date(),
 };
 
 var preview = {
-  photos: photos,
+  photos: [],
   navigation: navigation,
 };
+
+function setPhotos(preview, photos) {
+  return _.extend({}, preview, {
+    photos: photos,
+    navigation: {
+      index: 0,
+      count: photos.length,
+      updatedAt: new Date(),
+    },
+  });
+}
+
+function setCurrentPhotoIndex(preview, index) {
+  return _.extend({}, preview, {
+    navigation: {
+      index: index,
+    },
+  });
+}
 
 var PreviewController = function(socket) {
   this.socket = socket;
@@ -47,14 +52,16 @@ PreviewController.prototype.sendPreview = function() {
 };
 
 PreviewController.prototype.onChangePhoto = function(data) {
-  preview.navigation.index = JSON.parse(data).currentPhoto;
+  preview = setCurrentPhotoIndex(preview, JSON.parse(data).currentPhoto);
   this.socket.broadcast.emit(
     PreviewProtocol.CHANGE_PHOTO,
     JSON.stringify({currentPhoto: preview.navigation.index})
   );
 };
 
-function handlePreviews(io) {
+function handlePreviews(io, previewLoader) {
+  preview = setPhotos(preview, previewLoader.loadPhotos());
+
   io.on('connection', PreviewController.start);
 }
 
