@@ -14,8 +14,16 @@ module.exports = {
   development: development,
   proxyPort: proxyPort,
   webSocketAddress: webSocketAddress,
+
+  // Directory containing photos to display.
+  // If set to false no directory is scanned.
+  photosDir: 'photos',
   previewLoader: {
-    type: 'loremimage',
-    config: {},
+
+    // type of preview loader. supported values: filesystem, loremimage
+    type: 'filesystem',
+    config: {
+      photosDir: 'photos',
+    },
   },
 };

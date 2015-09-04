@@ -30,6 +30,7 @@
     "ampersand-view-switcher": "^2.0.0",
     "domready": "^1.0.8",
     "express": "^4.13.3",
+    "fs": "0.0.2",
     "http": "0.0.0",
     "lodash": "^3.10.1",
     "redux": "^2.0.0",

@@ -13,6 +13,11 @@ var config = require('./config');
 
 app.use(express.static('dist'));
 
+// serve yet another static directory for photos
+if (config.photosDir) {
+  app.use('/photos', express.static(config.photosDir));
+}
+
 var previewLoader = PreviewLoaderFactory.create(
   config.previewLoader.type,
   config.previewLoader.config
