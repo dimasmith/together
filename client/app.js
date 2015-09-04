@@ -10,7 +10,7 @@ import thunkMiddleware from 'redux-thunk';
 import MainPage from './pages/MainPage.js';
 import PhotoPage from './pages/PhotoPage.js';
 import rootReducer from './reducers/photosReducers.js';
-import * as PhotoActions from './actions/photoActions.js';
+import {initializePreview}  from './actions/photoActions.js';
 
 const createStoreWithMiddleware = applyMiddleware(
   loggerMiddleware, thunkMiddleware
@@ -24,6 +24,8 @@ app.extend({
   init() {
     this.mainView.render();
     this.mainView.showPage(new PhotoPage({store: this.store}));
+
+    this.store.dispatch(initializePreview());
   },
 });
 

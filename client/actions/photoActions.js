@@ -1,17 +1,17 @@
 /**
  * Application actions and action creators
  */
-import {broadcastSwitchPhoto} from '../sync/previewSyncClient.js';
+import * as PreviewClient from '../sync/previewSyncClient.js';
 
 export const REQUEST_PREVIEW = 'REQUEST_PREVIEW';
-export function requestPreview(photos, index) {
+function requestPreview() {
   return {
     type: REQUEST_PREVIEW,
   };
 }
 
 export const RECEIVE_PREVIEW = 'RECEIVE_PREVIEW';
-export function receivePreview(photos, index) {
+function receivePreview(photos, index) {
   return {
     type: RECEIVE_PREVIEW,
     photos,
@@ -50,11 +50,11 @@ function hasPreviousPhoto(state) {
 }
 
 function notifyNextPhoto(state) {
-  broadcastSwitchPhoto(state.photoNavigator.currentPhoto + 1);
+  PreviewClient.broadcastSwitchPhoto(state.photoNavigator.currentPhoto + 1);
 }
 
 function notifyPreviousPhoto(state) {
-  broadcastSwitchPhoto(state.photoNavigator.currentPhoto - 1);
+  PreviewClient.broadcastSwitchPhoto(state.photoNavigator.currentPhoto - 1);
 }
 
 export function nextPhoto() {
@@ -76,5 +76,17 @@ export function previousPhoto() {
     } else {
       return Promise.resolve();
     }
+  };
+}
+
+export function initializePreview() {
+  return (dispatch) => {
+    dispatch(requestPreview());
+
+    return PreviewClient.loadPreview()
+      .then((data) => dispatch(receivePreview(
+        data.photos,
+        data.navigation.index)
+      ));
   };
 }

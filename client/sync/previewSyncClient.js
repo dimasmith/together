@@ -3,22 +3,29 @@
  */
 import * as Protocol from '../../common/previewProtocol.js';
 import app from 'ampersand-app';
-import {showPhoto, receivePreview} from '../actions/photoActions.js';
+import {showPhoto} from '../actions/photoActions.js';
 
 var socket = io.connect(WEBSOCKET_ADDRESS);
 
 export function broadcastSwitchPhoto(currentPhoto) {
-  socket.emit(Protocol.CHANGE_PHOTO, JSON.stringify({currentPhoto}));
+  socket.emit(
+    Protocol.CHANGE_PHOTO,
+    JSON.stringify({currentPhoto})
+  );
 }
 
-function initializePreview(data) {
-  var preview = JSON.parse(data);
-  app.store.dispatch(receivePreview(preview.photos, preview.navigation.index));
+export function loadPreview() {
+  socket.emit(Protocol.REQUEST_PREVIEW);
+  return new Promise((resolve) => {
+    socket.on(
+      Protocol.INITIALIZE_PREVIEW,
+      data => resolve(JSON.parse(data))
+    );
+  });
 }
 
 function changePhoto(data) {
   app.store.dispatch(showPhoto(JSON.parse(data).currentPhoto));
 }
 
-socket.on(Protocol.INITIALIZE_PREVIEW, initializePreview);
 socket.on(Protocol.CHANGE_PHOTO, changePhoto);

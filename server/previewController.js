@@ -32,7 +32,12 @@ var preview = {
 
 var PreviewController = function(socket) {
   this.socket = socket;
+  socket.on(PreviewProtocol.REQUEST_PREVIEW, this.sendPreview.bind(this));
   socket.on(PreviewProtocol.CHANGE_PHOTO, this.onChangePhoto.bind(this));
+};
+
+PreviewController.start = function(socket) {
+  return new PreviewController(socket);
 };
 
 PreviewController.prototype.sendPreview = function() {
@@ -43,16 +48,14 @@ PreviewController.prototype.sendPreview = function() {
 
 PreviewController.prototype.onChangePhoto = function(data) {
   preview.navigation.index = JSON.parse(data).currentPhoto;
-  this.socket.broadcast.emit(PreviewProtocol.CHANGE_PHOTO, JSON.stringify({currentPhoto: preview.navigation.index}));
+  this.socket.broadcast.emit(
+    PreviewProtocol.CHANGE_PHOTO,
+    JSON.stringify({currentPhoto: preview.navigation.index})
+  );
 };
 
-function onConnect(socket) {
-  var controller = new PreviewController(socket);
-  controller.sendPreview();
-}
-
 function handlePreviews(io) {
-  io.on('connection', onConnect);
+  io.on('connection', PreviewController.start);
 }
 
 module.exports = handlePreviews;
