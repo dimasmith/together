@@ -12,6 +12,7 @@ var PreviewLoaderFactory = require('./server/PreviewLoaderFactory');
 var config = require('./config');
 
 app.use(express.static('dist'));
+app.use('/assets', express.static('assets'));
 
 // serve yet another static directory for photos
 if (config.photosDir) {

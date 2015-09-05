@@ -6,6 +6,7 @@ import AmpersandState from 'ampersand-state';
 import AmpersandCollection from 'ampersand-collection';
 
 import ThumbnailView from '../views/ThumbnailView.js';
+import ThumbnailsToolbarView from '../views/ThumbnailsToolbarView.js';
 import app from 'ampersand-app';
 import template from '../templates/thumbnailsPage.jade';
 
@@ -56,5 +57,14 @@ export default AmpersandView.extend({
     this.renderWithTemplate();
     this.renderCollection(this.photosCollection, ThumbnailView, '.b-thumbnails__container');
     this.update();
+  },
+
+  subviews: {
+    toolbar: {
+      selector: '.b-photo-toolbar',
+      prepareView(el) {
+        return new ThumbnailsToolbarView({el});
+      },
+    },
   },
 });

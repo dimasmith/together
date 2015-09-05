@@ -4,7 +4,7 @@
 import AmpersandView from 'ampersand-view';
 import Combokeys from 'combokeys';
 
-import NavigationView from '../views/NavigationView.js';
+import PhotoToolbarView from '../views/PhotoToolbarView.js';
 import {openThumbnails} from '../actions/navigationActions.js';
 import {nextPhoto, previousPhoto} from '../actions/photoActions.js';
 import app from 'ampersand-app';
@@ -56,10 +56,10 @@ export default AmpersandView.extend({
   },
 
   subviews: {
-    navigation: {
-      selector: 'footer',
+    toolbar: {
+      selector: '.b-photo-toolbar',
       prepareView(el) {
-        return new NavigationView({el: el});
+        return new PhotoToolbarView({el});
       },
     },
   },

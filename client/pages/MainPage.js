@@ -6,7 +6,6 @@ import AmpersandView from 'ampersand-view';
 import ViewSwitcher from 'ampersand-view-switcher';
 import {invoke,flatten} from 'lodash';
 
-import {openThumbnails} from '../actions/navigationActions.js';
 import ThumbnailsPage from '../pages/ThumbnailsPage.js';
 import PhotosPage from '../pages/PhotoPage.js';
 import mainPageTemplate from '../templates/mainPage.jade';
@@ -20,10 +19,6 @@ export default AmpersandView.extend({
 
   props: {
     viewMode: ['string'],
-  },
-
-  events: {
-    'click .b-navigation_thumbnails-button': 'onThumbnailsClick',
   },
 
   initialize() {
@@ -61,10 +56,5 @@ export default AmpersandView.extend({
 
   showPage(view) {
     this.viewSwitcher.set(view);
-  },
-
-  onThumbnailsClick(evt) {
-    evt.preventDefault();
-    app.dispatchAction(openThumbnails());
   },
 });
