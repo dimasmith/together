@@ -15,10 +15,27 @@ module.exports = {
   },
   devtool: 'eval',
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        include: [
+          __dirname + '/client',
+          __dirname + '/common',
+        ],
+        loader: 'jscs-loader',
+      },
+    ],
     loaders: [
       {test: /\.jade$/, loader: 'jade-loader'},
-      {test: /\.js$/, exclude: '/node_modules/', loader: 'babel-loader?optional=runtime'},
       {test: /\.scss$/, loader: 'style!css!sass'},
+      {
+        test: /\.js$/,
+        include: [
+          __dirname + '/client',
+          __dirname + '/common',
+        ],
+        loader: 'babel-loader?optional=runtime',
+      },
     ],
   },
   plugins: [
