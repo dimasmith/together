@@ -54,6 +54,6 @@ export default AmpersandView.extend({
   autoRender: true,
 
   bindings: {
-    position: '.b-photo-toolbar__counter',
+    position: '[data-hook=navigation-label]',
   },
 });

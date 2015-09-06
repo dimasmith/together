@@ -36,7 +36,7 @@ export default AmpersandView.extend({
   },
 
   events: {
-    'click .b-photo-toolbar__thumbnails-button': 'onThumbnailsClick',
+    'click [data-hook=thumbnails-button]': 'onThumbnailsClick',
   },
 
   props: {
@@ -63,6 +63,6 @@ export default AmpersandView.extend({
   autoRender: true,
 
   bindings: {
-    position: '.b-photo-toolbar__counter',
+    position: '[data-hook=navigation-label]',
   },
 });

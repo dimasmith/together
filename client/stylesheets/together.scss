@@ -2,47 +2,51 @@ $unit: 8px;
 
 $toolbar-height: $unit * 6;
 
-@mixin m-toolbar() {
-  height: $toolbar-height;
-  box-shadow: 0 3px 6px #696969;
-}
-
-html, body {
+html, body, .b-page-container {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: $unit * 2;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .b-photo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: 100%;
 }
 
 .b-photo-toolbar {
-  @include m-toolbar();
+  width: 100%;
+  height: $toolbar-height;
+  box-shadow: 0 3px 6px #696969;
   display: flex;
   justify-content: space-between;
+  position: fixed;
+  background-color: #ffffff;
 
-  &__thumbnails-button-image {
+  &__button-icon {
     height: $toolbar-height - $unit * 2;
     padding: $unit;
   }
+
+  &__label {
+    line-height: $toolbar-height;
+  }
 }
 
-.b-photo-toolbar__counter {
-  line-height: $toolbar-height;
-}
 
 .b-photo__frame {
-  display: flex;
   height: 100%;
-  margin-top: -$toolbar-height;
+  display: flex;
+  box-sizing: border-box;
+  padding-top: $toolbar-height;
+
+  .b-photo__image {
+    max-width: 96%;
+    max-height: 96%;
+    margin: auto;
+  }
 }
 
-.b-photo__image {
-  height: 82%;
-  margin: auto;
-}
 
 .b-thumbnails__container {
   display: flex;
@@ -50,6 +54,8 @@ html, body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  padding-top: $toolbar-height;
 
 }
 
@@ -63,12 +69,9 @@ $thumbnail-height: 240px;
   overflow: hidden;
   box-sizing: border-box;
   border: 1px solid cornflowerblue;
+
+  &__image {
+    width: $thumbnail-width;
+    min-height: $thumbnail-height;
+  }
 }
-
-.b-thumbnail__image {
-  width: $thumbnail-width;
-  min-height: $thumbnail-height;
-}
-
-
-
