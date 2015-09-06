@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * CLI runner for together system
  */
@@ -27,12 +26,12 @@ if (!photosDir) {
   process.exit(1);
 }
 
-var config = _.extend({}, require('./config'));
+var config = _.extend({}, require('../config'));
 config.development = false;
 config.port = port;
 config.photosDir = photosDir;
 config.previewLoader.type = 'filesystem';
 config.previewLoader.config.photosDir = photosDir;
 
-var startApp = require('./server/app');
+var startApp = require('./app');
 startApp(config);
