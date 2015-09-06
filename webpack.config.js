@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = require('./config');
 
 const webSocketAddress = (config.development)
@@ -23,6 +24,11 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       WEBSOCKET_ADDRESS: webSocketAddress,
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Together',
+      template: 'client/index.html',
+      inject: 'body',
     }),
   ],
 };
