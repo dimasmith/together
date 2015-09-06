@@ -2,20 +2,32 @@ Together
 ========
 
 Application for simultaneous photo viewing. Photo switching is synchronized
- between all connected users.
+between all connected users. Serve photos from directory.
+
+## Installing
+
+`npm install @dimasmith/together`
 
 ## Running installed module
 
-Use command line client `together.js` to run application from within installed
-module directory.
+Command line client is provided for package.
+Note that in order to serve properly you need to run
+it either from installed module directory
+(`node_modules/@dimasmith/together`) or specify this directory
+as `--cwd` parameter.
 
-CLI requires `photos` parameter to be passed and pointing do directory with images.
-
-Example:
 ```
-cd node_modules/@dimasmith/together
+Usage: together [options] <photos-dir>
 
-./together --photos=~/Pictures
+  Starts server and show photos from specified dir
+
+  Options:
+
+    -h, --help        output usage information
+    -V, --version     output the version number
+    -p --port [port]  Server port
+    -w --cwd <dir>    Application working directory
+
 ```
 
 ## Starting
