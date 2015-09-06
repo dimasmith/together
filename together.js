@@ -2,16 +2,28 @@
 /**
  * CLI runner for together system
  */
-var parseArgs = require('minimist');
+var program = require('commander');
 var _ = require('lodash');
 
-var args = parseArgs(process.argv.slice(2));
+program
+  .version('0.1.0')
+  .description('Starts server and show photos from specified dir')
+  .arguments('<photos-dir>')
+  .option('-p --port [port]', 'Server port', 8000)
+  .option('-w --cwd <dir>', 'Application working directory', __dirname);
 
-var port = args.port || process.env.SERVER_PORT || 8000;
-var photosDir = args.photos || process.env.PHOTOS;
+program.parse(process.argv);
+
+if (program.cwd !== process.cwd) {
+  process.chdir(program.cwd);
+}
+
+var port = program.port || process.env.SERVER_PORT || 8000;
+var photosDir = program.args[0] || process.env.PHOTOS;
 
 if (!photosDir) {
-  console.error('Please specify directory with photos by either --photos=<dir> or PHOTOS env variable');
+  console.error('Please provide photos directory');
+  program.outputHelp();
   process.exit(1);
 }
 
