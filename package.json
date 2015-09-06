@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "description": "Application for simultaneous photo viewing",
   "main": "server.js",
+  "bin": {
+    "together": "./together.js"
+  },
   "scripts": {
     "compile": "node node_modules/webpack/bin/webpack.js",
-    "preinstall": "node node_modules/webpack/bin/webpack.js",
+    "prepublish": "node node_modules/webpack/bin/webpack.js",
     "test": "exit 0"
   },
   "repository": {
@@ -37,6 +40,7 @@
     "fs": "0.0.2",
     "http": "0.0.0",
     "lodash": "^3.10.1",
+    "minimist": "^1.2.0",
     "redux": "^2.0.0",
     "redux-logger": "^1.0.6",
     "redux-thunk": "^0.1.0",
