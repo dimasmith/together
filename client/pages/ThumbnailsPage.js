@@ -15,10 +15,17 @@ var Photo = AmpersandState.extend({
     url: ['string'],
     date: ['date'],
   },
+  session: {
+    selected: ['boolean', true, false],
+    index: ['number'],
+  },
 });
 
 var PhotosCollection = AmpersandCollection.extend({
   model: Photo,
+  selectPhoto(index) {
+    this.forEach((model, i) => model.selected = i === index);
+  },
 });
 
 //noinspection JSUnusedGlobalSymbols
@@ -26,9 +33,6 @@ export default AmpersandView.extend({
 
   autoRender: true,
   template,
-  props: {
-    url: ['string', false],
-  },
 
   bindings: {
     url: {
@@ -51,12 +55,15 @@ export default AmpersandView.extend({
   setState(state) {
     let photos = state.photos;
     this.photosCollection.reset(photos);
+
+    let index = state.navigation.index;
+    this.photosCollection.selectPhoto(index);
   },
 
   render() {
+    this.update();
     this.renderWithTemplate();
     this.renderCollection(this.photosCollection, ThumbnailView, '.b-thumbnails__container');
-    this.update();
   },
 
   subviews: {

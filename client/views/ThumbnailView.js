@@ -27,5 +27,10 @@ export default AmpersandView.extend({
       type: 'attribute',
       name: 'src',
     },
+    'model.selected': {
+      selector: '.b-thumbnail',
+      type: 'booleanClass',
+      name: 'b-thumbnail_selected',
+    },
   },
 });

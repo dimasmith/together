@@ -41,7 +41,7 @@ export function showPhoto(index) {
 }
 
 function hasNextPhoto(state) {
-  return state.navigation.index <= state.navigation.count - 1;
+  return state.navigation.index < state.navigation.count - 1;
 }
 
 function hasPreviousPhoto(state) {

@@ -48,27 +48,30 @@ html, body, .b-page-container {
 }
 
 
+$thumbnail-width: 320px;
+$thumbnail-height: 240px;
+
 .b-thumbnails__container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   box-sizing: border-box;
   padding-top: $toolbar-height;
-
 }
-
-$thumbnail-width: 320px;
-$thumbnail-height: 240px;
 
 .b-thumbnail {
   width: $thumbnail-width;
   height: $thumbnail-height;
-  margin: 8px;
+  margin: $unit;
   overflow: hidden;
   box-sizing: border-box;
   border: 1px solid cornflowerblue;
+
+  &_selected {
+    border-width: 5px;
+  }
 
   &__image {
     width: $thumbnail-width;
