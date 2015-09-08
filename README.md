@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dimasmith/together.svg?branch=dev)](https://travis-ci.org/dimasmith/together)
+
 Together
 ========
 
