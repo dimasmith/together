@@ -4,11 +4,11 @@
   "description": "Application for simultaneous photo viewing",
   "main": "server.js",
   "bin": {
-    "together": "./together.js"
+    "together": "./cli.js"
   },
   "scripts": {
-    "compile": "node node_modules/webpack/bin/webpack.js",
-    "prepublish": "node node_modules/webpack/bin/webpack.js",
+    "compile": "babel-node node_modules/webpack/bin/webpack.js",
+    "prepublish": "babel-node node_modules/webpack/bin/webpack.js",
     "test": "exit 0",
     "start": "babel-node ./server.js"
   },

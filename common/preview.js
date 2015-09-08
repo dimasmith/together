@@ -17,7 +17,7 @@ function extendGallery(initialGallery, gallery = {}) {
 
 function extendNavigation(gallery, navigation) {
   return Object.assign({}, gallery, {
-    navigation: Object.assign({}, gallery.navigation, navigation)
+    navigation: Object.assign({}, gallery.navigation, navigation),
   });
 }
 
