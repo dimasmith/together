@@ -3,48 +3,49 @@
  */
 var _ = require('lodash');
 
-var Preview = require('../common/preview');
-var PreviewProtocol = require('../common/previewProtocol');
+import * as Preview from '../common/preview';
+import {CHANGE_PHOTO, INITIALIZE_PREVIEW, REQUEST_PREVIEW, SHOW_THUMBNAILS}  from '../common/previewProtocol';
 
-var preview = Preview.createPreview();
+var gallery = Preview.createPreview();
 
-var PreviewController = function(socket) {
-  this.socket = socket;
-  socket.on(PreviewProtocol.REQUEST_PREVIEW, this.sendPreview.bind(this));
-  socket.on(PreviewProtocol.CHANGE_PHOTO, this.onChangePhoto.bind(this));
-  socket.on(PreviewProtocol.SHOW_THUMBNAILS, this.onShowThumbnails.bind(this));
-};
+class Session {
 
-PreviewController.start = function(socket) {
-  return new PreviewController(socket);
-};
+  constructor(socket) {
+    this.socket = socket;
+    socket.on(REQUEST_PREVIEW, () => this.sendPreview());
+    socket.on(CHANGE_PHOTO, (data) => this.onChangePhoto(data));
+    socket.on(SHOW_THUMBNAILS, () => this.onShowThumbnails());
+  }
 
-PreviewController.prototype.sendPreview = function() {
-  this.socket.emit(
-    PreviewProtocol.INITIALIZE_PREVIEW,
-    JSON.stringify(preview));
-};
+  sendPreview() {
+    this.socket.emit(
+      INITIALIZE_PREVIEW,
+      JSON.stringify(gallery));
+  }
 
-PreviewController.prototype.onChangePhoto = function(data) {
-  var response = JSON.parse(data);
-  preview = Preview.setCurrentPhotoIndex(preview, response.index);
-  this.socket.broadcast.emit(
-    PreviewProtocol.CHANGE_PHOTO,
-    JSON.stringify({index: preview.navigation.index})
-  );
-};
+  onChangePhoto(data) {
+    var response = JSON.parse(data);
+    gallery = Preview.setCurrentPhotoIndex(gallery, response.index);
+    this.socket.broadcast.emit(
+      CHANGE_PHOTO,
+      JSON.stringify({index: gallery.navigation.index})
+    );
+  }
 
-PreviewController.prototype.onShowThumbnails = function() {
-  preview = Preview.setViewMode(preview, Preview.THUMBNAILS_MODE);
-  this.socket.broadcast.emit(
-    PreviewProtocol.SHOW_THUMBNAILS
-  );
-};
+  onShowThumbnails() {
+    gallery = Preview.setViewMode(gallery, Preview.THUMBNAILS_MODE);
+    this.socket.broadcast.emit(
+      SHOW_THUMBNAILS
+    );
+  }
 
-function handlePreviews(io, previewLoader) {
-  preview = Preview.setPhotos(preview, previewLoader.loadPhotos());
-
-  io.on('connection', PreviewController.start);
+  static start(socket) {
+    return new Session(socket);
+  }
 }
 
-module.exports = handlePreviews;
+export default function(io, previewLoader) {
+  gallery = Preview.setPhotos(gallery, previewLoader.loadPhotos());
+
+  io.on('connection', Session.start);
+}

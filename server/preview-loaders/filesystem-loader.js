@@ -1,7 +1,7 @@
 /**
  * Load list of photos from file system
  */
-var fs = require('fs');
+import fs from 'fs';
 
 const DOWNLOAD_PREFIX = '/photos/';
 const IMAGE_FILE_REGEX = /(jpg|png|jpeg)$/i;
