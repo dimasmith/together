@@ -1,4 +1,18 @@
+# webpack
 webpack.config.js
+webpack.backend.config.js
+webpack.frontend.config.js
+
+# sources
 client/
+server/
+common/
+
+# settings
 .editorconfig
 .jscsrc
+.travis.yml
+
+# dev scripts
+devProxy.js
+config.js
