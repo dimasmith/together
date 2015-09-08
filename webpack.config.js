@@ -17,90 +17,48 @@ fs.readdirSync('node_modules')
     nodeModules[mod] = 'commonjs ' + mod;
   });
 
-module.exports = [
-
-  // frontend configuration
-  {
-    entry: {
-      client: './client/app',
-    },
-    output: {
-      path: __dirname + '/dist',
-      filename: '[name].bundle.js',
-    },
-    devtool: 'eval',
-    module: {
-      preLoaders: [
-        {
-          test: /\.js$/,
-          include: [
-            __dirname + '/client',
-            __dirname + '/common',
-          ],
-          loader: 'jscs-loader',
-        },
-      ],
-      loaders: [
-        {test: /\.jade$/, loader: 'jade-loader'},
-        {test: /\.scss$/, loader: 'style!css!sass'},
-        {
-          test: /\.js$/,
-          include: [
-            __dirname + '/client',
-            __dirname + '/common',
-          ],
-          loader: 'babel-loader?optional=runtime',
-        },
-      ],
-    },
-    plugins: [
-      new webpack.DefinePlugin({
-        WEBSOCKET_ADDRESS: webSocketAddress,
-      }),
-      new HtmlWebpackPlugin({
-        title: 'Together',
-        template: 'client/index.html',
-        inject: 'body',
-      }),
+// frontend configuration
+module.exports = {
+  entry: {
+    client: './client/app',
+  },
+  output: {
+    path: __dirname + '/dist',
+    filename: '[name].bundle.js',
+  },
+  devtool: 'eval',
+  module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        include: [
+          __dirname + '/client',
+          __dirname + '/common',
+        ],
+        loader: 'jscs-loader',
+      },
+    ],
+    loaders: [
+      {test: /\.jade$/, loader: 'jade-loader'},
+      {test: /\.scss$/, loader: 'style!css!sass'},
+      {
+        test: /\.js$/,
+        include: [
+          __dirname + '/client',
+          __dirname + '/common',
+        ],
+        loader: 'babel-loader?optional=runtime',
+      },
     ],
   },
-
-  // backend configuration
-  {
-    entry: {
-      server: './server/cli',
-    },
-    target: 'node',
-    externals: nodeModules,
-    output: {
-      path: __dirname + '/dist',
-      filename: '[name].bundle.js',
-    },
-    devtool: 'eval',
-    module: {
-      preLoaders: [
-        {
-          test: /\.js$/,
-          include: [
-            __dirname + '/common',
-            __dirname + '/server',
-          ],
-          loader: 'jscs-loader',
-        },
-      ],
-      loaders: [
-        {test: /\.jade$/, loader: 'jade-loader'},
-        {test: /\.json$/, loader: 'json-loader'},
-        {test: /\.scss$/, loader: 'style!css!sass'},
-        {
-          test: /\.js$/,
-          include: [
-            __dirname + '/common',
-            __dirname + '/server',
-          ],
-          loader: 'babel-loader?optional=runtime',
-        },
-      ],
-    },
-  },
-];
+  plugins: [
+    new webpack.DefinePlugin({
+      WEBSOCKET_ADDRESS: webSocketAddress,
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Together',
+      template: 'client/index.html',
+      inject: 'body',
+    }),
+  ],
+};

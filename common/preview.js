@@ -1,12 +1,7 @@
-var _ = require('lodash');
+export const THUMBNAILS_MODE = 'THUMBNAILS';
+export const PHOTO_MODE = 'PHOTO';
 
-const THUMBNAILS_MODE = 'THUMBNAILS';
-const PHOTO_MODE = 'PHOTO';
-
-module.exports.THUMBNAILS_MODE = THUMBNAILS_MODE;
-module.exports.PHOTO_MODE = PHOTO_MODE;
-
-const initialPreview = {
+const initialGallery = {
   photos: [],
   navigation: {
     index: 0,
@@ -16,13 +11,24 @@ const initialPreview = {
   updatedAt: new Date(),
 };
 
-module.exports.createPreview = function() {
-  return _.extend({}, initialPreview);
-};
+function extendGallery(initialGallery, gallery = {}) {
+  return Object.assign({}, initialGallery, gallery);
+}
 
-module.exports.setPhotos = function(preview, photos) {
-  return _.extend({}, preview, {
-    photos: photos,
+function extendNavigation(gallery, navigation) {
+  return Object.assign({}, gallery, {
+    navigation: Object.assign({}, gallery.navigation, navigation)
+  });
+}
+
+export function createPreview() {
+  return extendGallery(initialGallery);
+}
+
+export function setPhotos(gallery, photos) {
+  console.info('set photos');
+  return extendGallery(gallery, {
+    photos,
     navigation: {
       index: 0,
       count: photos.length,
@@ -30,21 +36,17 @@ module.exports.setPhotos = function(preview, photos) {
     },
     updatedAt: new Date(),
   });
-};
+}
 
-module.exports.setCurrentPhotoIndex = function(preview, index) {
-  var clone = _.extend({}, preview);
-  _.extend(clone.navigation, {
+export function setCurrentPhotoIndex(gallery, index) {
+  return extendNavigation(gallery, {
     index: index,
     viewMode: PHOTO_MODE,
   });
-  return clone;
-};
+}
 
-module.exports.setViewMode = function(preview, viewMode) {
-  var clone = _.extend({}, preview);
-  _.extend(clone.navigation, {
+export function setViewMode(gallery, viewMode) {
+  return extendNavigation(gallery, {
     viewMode: viewMode,
   });
-  return clone;
-};
+}

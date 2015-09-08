@@ -32,4 +32,4 @@ function start(config) {
   });
 }
 
-module.exports = start;
+export default start;
