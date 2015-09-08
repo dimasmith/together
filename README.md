@@ -3,8 +3,22 @@
 Together
 ========
 
-Application for simultaneous photo viewing. Photo switching is synchronized
-between all connected users. Serve photos from directory.
+Application for simultaneous photo viewing.
+
+All actions made by any of viewers (like going to next photo or open photo list page)
+are immediately duplicated in browsers of all other viewers.
+
+## Use case
+
+Once a friend of mine vent to long vacation. He wanted to share some photos and comment on some of those.
+We started a skype conversation with screen sharing but video quality was pretty bad.
+This application allows to show all photos from directory and synchronize actions of viewers.
+Say when friend goes to next photo the same photo is shown to me. So he can tell me about that photo on
+skype without having issues with video quality. I can also go to any photo that is interesting for me
+and ask him to tell about that one. My actions will be synchronized to him as well.
+
+Please note I'm not considering this as a serious application, more like playground to learn
+javascript and node.js.
 
 ## Installing
 
