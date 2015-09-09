@@ -1,7 +1,9 @@
 /**
  * Application actions and action creators
  */
-import * as PreviewClient from '../sync/previewSyncClient.js';
+import app from 'ampersand-app';
+
+const syncClient = app.syncClient;
 
 export const REQUEST_PREVIEW = 'REQUEST_PREVIEW';
 function requestGallery() {
@@ -50,7 +52,7 @@ export function showThumbnails() {
 export function openThumbnails() {
   return (dispatch) => {
     dispatch(showThumbnails());
-    PreviewClient.broadcastOpenThumbnails();
+    syncClient.onShowThumbnails();
   };
 }
 
@@ -63,11 +65,11 @@ function hasPreviousPhoto(state) {
 }
 
 function notifyNextPhoto(state) {
-  PreviewClient.broadcastSwitchPhoto(state.navigation.index + 1);
+  syncClient.openPhoto(state.navigation.index + 1);
 }
 
 function notifyPreviousPhoto(state) {
-  PreviewClient.broadcastSwitchPhoto(state.navigation.index - 1);
+  syncClient.openPhoto(state.navigation.index - 1);
 }
 
 function isIndexInBounds(state, index) {
@@ -75,7 +77,7 @@ function isIndexInBounds(state, index) {
 }
 
 function notifyPhotoIndex(index) {
-  PreviewClient.broadcastSwitchPhoto(index);
+  syncClient.openPhoto(index);
 }
 
 export function nextPhoto() {
@@ -115,8 +117,11 @@ export function initializeGallery() {
   return (dispatch) => {
     dispatch(requestGallery());
 
-    return PreviewClient.loadGallery()
+    return syncClient.loadGallery()
       .then(data => dispatch(receiveGallery(data)))
       .catch(err => console.error(err));
   };
 }
+
+syncClient.onShowPhoto((navigation) => app.store.dispatch(showPhoto(navigation.index)));
+syncClient.onShowThumbnails(() => app.dispatchAction(showThumbnails()));

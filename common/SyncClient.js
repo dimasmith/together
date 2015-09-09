@@ -5,6 +5,10 @@ import * as Protocol from './previewProtocol.js';
 class SyncClient {
 
   constructor(transport) {
+    if (!transport) {
+      throw new Error('Missing transport for SyncClient');
+    }
+
     this.transport = transport;
   }
 
@@ -41,6 +45,23 @@ class SyncClient {
           data => resolve(JSON.parse(data))
       );
     });
+  }
+
+  /**
+   * Calls supplied callback when photo changed on server.
+   * Passes navigation data as parameter
+   * @param callback
+   */
+  onShowPhoto(callback) {
+    this.transport.on(Protocol.CHANGE_PHOTO, (data) => callback(JSON.parse(data)));
+  }
+
+  /**
+   * Calls supplied callback when server switches to thumbnails view.
+   * @param callback
+   */
+  onShowThumbnails(callback) {
+    this.transport.on(Protocol.SHOW_THUMBNAILS, () => callback());
   }
 }
 
