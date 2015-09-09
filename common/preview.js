@@ -31,7 +31,7 @@ function isIndexInvalid(gallery, index) {
 }
 
 function isInvalidViewMode(viewMode) {
-  return !modes.includes(viewMode);
+  return modes.indexOf(viewMode) < 0;
 }
 
 export function createPreview() {
