@@ -9,7 +9,7 @@
   "scripts": {
     "compile": "babel-node node_modules/webpack/bin/webpack.js",
     "prepublish": "babel-node node_modules/webpack/bin/webpack.js",
-    "test": "exit 0",
+    "test": "mocha --compilers js:babel/register test/**/*Test.js",
     "start": "babel-node ./server.js"
   },
   "repository": {
@@ -52,6 +52,7 @@
     "babel-core": "^5.8.23",
     "babel-loader": "^5.3.2",
     "babel-runtime": "^5.8.20",
+    "chai": "^3.2.0",
     "css-loader": "^0.17.0",
     "html-webpack-plugin": "^1.6.1",
     "jade": "^1.11.0",
@@ -59,6 +60,7 @@
     "jscs": "^2.1.1",
     "jscs-loader": "^0.2.0",
     "json-loader": "^0.5.2",
+    "mocha": "^2.3.2",
     "node-sass": "^3.3.2",
     "path": "^0.11.14",
     "sass-loader": "^2.0.1",
