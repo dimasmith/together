@@ -5,20 +5,21 @@ import * as Protocol from '../../common/previewProtocol.js';
 import app from 'ampersand-app';
 import {showPhoto} from '../actions/photoActions.js';
 import {showThumbnails} from '../actions/navigationActions.js';
+import SocketTransport from '../../common/SocketTransport.js';
 
-var socket = io.connect(WEBSOCKET_ADDRESS);
+var transport = new SocketTransport(io.connect(WEBSOCKET_ADDRESS));
 
 export function broadcastSwitchPhoto(index) {
-  socket.emit(
+  transport.send(
     Protocol.CHANGE_PHOTO,
     JSON.stringify({index})
   );
 }
 
 export function loadPreview() {
-  socket.emit(Protocol.REQUEST_PREVIEW);
+  transport.send(Protocol.REQUEST_PREVIEW);
   return new Promise((resolve) => {
-    socket.on(
+    transport.on(
       Protocol.INITIALIZE_PREVIEW,
         data => resolve(JSON.parse(data))
     );
@@ -26,7 +27,7 @@ export function loadPreview() {
 }
 
 export function broadcastOpenThumbnails() {
-  socket.emit(Protocol.SHOW_THUMBNAILS);
+  transport.send(Protocol.SHOW_THUMBNAILS);
 }
 
 function changePhoto(data) {
@@ -34,5 +35,5 @@ function changePhoto(data) {
   app.store.dispatch(showPhoto(response.index));
 }
 
-socket.on(Protocol.CHANGE_PHOTO, changePhoto);
-socket.on(Protocol.SHOW_THUMBNAILS, () => app.dispatchAction(showThumbnails()));
+transport.on(Protocol.CHANGE_PHOTO, changePhoto);
+transport.on(Protocol.SHOW_THUMBNAILS, () => app.dispatchAction(showThumbnails()));
