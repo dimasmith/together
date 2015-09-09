@@ -19,7 +19,6 @@ export default {
     path: __dirname + '/dist',
     filename: '[name].bundle.js',
   },
-  devtool: 'eval',
   module: {
     preLoaders: [
       {test: /\.js$/, include: sourceDirs, loader: 'jscs-loader'},
@@ -39,5 +38,6 @@ export default {
       template: 'client/index.html',
       inject: 'body',
     }),
+    new webpack.optimize.UglifyJsPlugin(),
   ],
 };
