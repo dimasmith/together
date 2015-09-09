@@ -1,13 +1,10 @@
-import Transport from './Transport.js';
 /**
  * Wraps websocket to common transport interface.
  * @version 0.1.0
  */
-class WebsocketTransport extends Transport {
+class Transport {
 
-  constructor(socket) {
-    super();
-    this.transport = socket;
+  constructor() {
   }
 
   /**
@@ -16,7 +13,7 @@ class WebsocketTransport extends Transport {
    * @param payload
    */
   send(type, payload) {
-    this.transport.emit(type, payload);
+    console.info('send', type, payload);
   }
 
   /**
@@ -25,12 +22,12 @@ class WebsocketTransport extends Transport {
    * @param payload
    */
   broadcast(type, payload) {
-    this.transport.broadcast.emit(type, payload);
+    console.info('broadcast', type, payload);
   }
 
   on(type, callback) {
-    this.transport.on(type, callback);
+    console.info('on', type, callback);
   }
 }
 
-export default WebsocketTransport;
+export default Transport;
