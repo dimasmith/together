@@ -4,14 +4,14 @@
 import * as PreviewClient from '../sync/previewSyncClient.js';
 
 export const REQUEST_PREVIEW = 'REQUEST_PREVIEW';
-function requestPreview() {
+function requestGallery() {
   return {
     type: REQUEST_PREVIEW,
   };
 }
 
 export const RECEIVE_PREVIEW = 'RECEIVE_PREVIEW';
-function receivePreview(preview) {
+function receiveGallery(preview) {
   return {
     type: RECEIVE_PREVIEW,
     preview,
@@ -37,6 +37,20 @@ export function showPhoto(index) {
   return {
     type: SHOW_PHOTO,
     index,
+  };
+}
+
+export const SHOW_THUMBNAILS = 'SHOW_THUMBNAILS';
+export function showThumbnails() {
+  return {
+    type: SHOW_THUMBNAILS,
+  };
+}
+
+export function openThumbnails() {
+  return (dispatch) => {
+    dispatch(showThumbnails());
+    PreviewClient.broadcastOpenThumbnails();
   };
 }
 
@@ -97,12 +111,12 @@ export function switchToPhoto(index) {
   };
 }
 
-export function initializePreview() {
+export function initializeGallery() {
   return (dispatch) => {
-    dispatch(requestPreview());
+    dispatch(requestGallery());
 
-    return PreviewClient.loadPreview()
-      .then(data => dispatch(receivePreview(data)))
+    return PreviewClient.loadGallery()
+      .then(data => dispatch(receiveGallery(data)))
       .catch(err => console.error(err));
   };
 }

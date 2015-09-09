@@ -4,8 +4,7 @@
 
 import { combineReducers } from 'redux';
 
-import { RECEIVE_PREVIEW, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO } from '../actions/photoActions.js';
-import {SHOW_THUMBNAILS} from '../actions/navigationActions.js';
+import {RECEIVE_PREVIEW, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO, SHOW_THUMBNAILS} from '../actions/galleryActions.js';
 
 function photos(state = [], action = null) {
   switch (action.type) {

@@ -3,7 +3,7 @@
  */
 import AmpersandView from 'ampersand-view';
 
-import {switchToPhoto} from '../actions/photoActions.js';
+import {switchToPhoto} from '../actions/galleryActions.js';
 import template from '../templates/views/thumbnailView.jade';
 import app from 'ampersand-app';
 

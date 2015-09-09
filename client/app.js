@@ -11,7 +11,7 @@ import MainPage from './pages/MainPage.js';
 import PhotoPage from './pages/PhotoPage.js';
 import ThumbnailsPage from './pages/ThumbnailsPage.js';
 import rootReducer from './reducers/photosReducers.js';
-import {initializePreview}  from './actions/photoActions.js';
+import {initializeGallery}  from './actions/galleryActions.js';
 
 import * as Stylesheet from './stylesheets/together.scss';
 
@@ -28,7 +28,7 @@ app.extend({
   init() {
     this.mainView = new MainPage({el: document.body}),
     this.mainView.render();
-    this.store.dispatch(initializePreview());
+    this.store.dispatch(initializeGallery());
   },
 
   dispatchAction: function(action) {
