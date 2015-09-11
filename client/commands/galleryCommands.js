@@ -4,8 +4,6 @@
 import app from 'ampersand-app';
 import {showThumbnails, showNextPhoto, showPreviousPhoto, showPhoto, requestGallery, receiveGallery} from '../actions/galleryActions.js';
 
-const syncClient = app.syncClient;
-
 function hasNextPhoto(state) {
   return state.navigation.index < state.navigation.count - 1;
 }
@@ -19,13 +17,13 @@ function isIndexInBounds(state, index) {
 }
 
 function sendPhotoIndex(state) {
-  syncClient.sendOpenPhoto(state.navigation.index);
+  app.syncClient.sendOpenPhoto(state.navigation.index);
 }
 
 export function openThumbnails() {
   return (dispatch) => {
     dispatch(showThumbnails());
-    syncClient.onShowThumbnails();
+    app.syncClient.onShowThumbnails();
   };
 }
 
@@ -66,7 +64,7 @@ export function initializeGallery() {
   return (dispatch) => {
     dispatch(requestGallery());
 
-    return syncClient.loadGallery()
+    return app.syncClient.loadGallery()
       .then(data => dispatch(receiveGallery(data)))
       .catch(err => console.error(err));
   };
