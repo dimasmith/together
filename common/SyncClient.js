@@ -17,7 +17,7 @@ class SyncClient {
    * Tells server that photo with given index were open
    * @param index zero based index of photo
    */
-  openPhoto(index) {
+  sendOpenPhoto(index) {
     this.transport.send(
       Protocol.CHANGE_PHOTO,
       {index}
@@ -27,7 +27,7 @@ class SyncClient {
   /**
    * Open gallery thumbnails view
    */
-  openThumbnails() {
+  sendOpenThumbnails() {
     this.transport.send(Protocol.SHOW_THUMBNAILS);
   }
 

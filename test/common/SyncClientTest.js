@@ -21,7 +21,7 @@ describe('Gallery SyncClient', () => {
     afterEach(() =>  transport.send.restore());
 
     it(`should send ${Protocol.SHOW_THUMBNAILS} message`, () => {
-      syncClient.openThumbnails();
+      syncClient.sendOpenThumbnails();
 
       assert(transport.send.calledOnce);
       assert.deepEqual(transport.send.lastCall.args, [Protocol.SHOW_THUMBNAILS], 'wrong arguments passed');
@@ -35,7 +35,7 @@ describe('Gallery SyncClient', () => {
 
     it(`should send ${Protocol.CHANGE_PHOTO} message`, () => {
       let payload = {index: 1};
-      syncClient.openPhoto(payload.index);
+      syncClient.sendOpenPhoto(payload.index);
 
       assert(transport.send.calledOnce);
       assert.deepEqual(transport.send.lastCall.args, [Protocol.CHANGE_PHOTO, payload], 'wrong arguments passed');

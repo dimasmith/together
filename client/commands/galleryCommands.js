@@ -19,7 +19,7 @@ function isIndexInBounds(state, index) {
 }
 
 function sendPhotoIndex(state) {
-  syncClient.openPhoto(state.navigation.index);
+  syncClient.sendOpenPhoto(state.navigation.index);
 }
 
 export function openThumbnails() {
@@ -71,6 +71,3 @@ export function initializeGallery() {
       .catch(err => console.error(err));
   };
 }
-
-syncClient.onShowPhoto((navigation) => app.store.dispatch(showPhoto(navigation.index)));
-syncClient.onShowThumbnails(() => app.dispatchAction(showThumbnails()));
