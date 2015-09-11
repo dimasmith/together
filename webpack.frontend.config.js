@@ -27,6 +27,10 @@ export default {
       {test: /\.jade$/, loader: 'jade-loader'},
       {test: /\.scss$/, loader: 'style!css!sass'},
       {test: /\.js$/, include: sourceDirs, loader: 'babel-loader?optional=runtime'},
+      {test: /\.(gif|png|jpe?g|svg)$/, loaders: [
+        'url?limit=10240&name=[path][name].[ext]?[hash]',
+        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
+      ],},
     ],
   },
   plugins: [
