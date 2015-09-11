@@ -1,4 +1,5 @@
 import * as Protocol from './previewProtocol.js';
+
 /**
  * Gallery synchronization protocol client
  */
@@ -19,7 +20,7 @@ class SyncClient {
   openPhoto(index) {
     this.transport.send(
       Protocol.CHANGE_PHOTO,
-      JSON.stringify({index})
+      {index}
     );
   }
 
@@ -42,7 +43,7 @@ class SyncClient {
     return new Promise((resolve) => {
       this.transport.on(
         Protocol.INITIALIZE_PREVIEW,
-          data => resolve(JSON.parse(data))
+          data => resolve(data)
       );
     });
   }
@@ -53,7 +54,7 @@ class SyncClient {
    * @param callback
    */
   onShowPhoto(callback) {
-    this.transport.on(Protocol.CHANGE_PHOTO, (data) => callback(JSON.parse(data)));
+    this.transport.on(Protocol.CHANGE_PHOTO, (data) => callback(data));
   }
 
   /**

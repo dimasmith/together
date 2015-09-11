@@ -9,8 +9,8 @@ class Transport {
 
   /**
    * Send message directly to client.
-   * @param type
-   * @param payload
+   * @param {string} type
+   * @param {Object} payload
    */
   send(type, payload) {
     console.info('send', type, payload);
@@ -18,13 +18,23 @@ class Transport {
 
   /**
    * Send message to all connected clients except of one connected to this transport.
-   * @param type
-   * @param payload
+   * @param {string} type
+   * @param {Object} payload
    */
   broadcast(type, payload) {
     console.info('broadcast', type, payload);
   }
 
+  /**
+   * @callback transportCallback
+   * @param {Object} data object containing action payload
+   */
+
+  /**
+   * Listen to incoming message of type and execute callback.
+   * @param {string} type
+   * @param {transportCallback} callback
+   */
   on(type, callback) {
     console.info('on', type, callback);
   }

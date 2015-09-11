@@ -17,16 +17,14 @@ class Session {
   sendPreview() {
     this.transport.send(
       INITIALIZE_PREVIEW,
-      JSON.stringify(this.gallery.getState()));
+      this.gallery.getState());
   }
 
   onChangePhoto(data) {
-    var response = JSON.parse(data);
-    var index = response.index;
-    this.gallery.openPhoto(index);
+    this.gallery.openPhoto(data.index);
     this.transport.broadcast(
       CHANGE_PHOTO,
-      JSON.stringify({index: this.gallery.getState().navigation.index})
+      {index: this.gallery.getState().navigation.index}
     );
   }
 

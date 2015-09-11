@@ -38,7 +38,7 @@ describe('Gallery SyncClient', () => {
       syncClient.openPhoto(payload.index);
 
       assert(transport.send.calledOnce);
-      assert.deepEqual(transport.send.lastCall.args, [Protocol.CHANGE_PHOTO, JSON.stringify(payload)], 'wrong arguments passed');
+      assert.deepEqual(transport.send.lastCall.args, [Protocol.CHANGE_PHOTO, payload], 'wrong arguments passed');
     });
   });
 
@@ -63,7 +63,7 @@ describe('Gallery SyncClient', () => {
 
     it(`should return gallery data in promise`, (done) => {
       let expectedData = {data: 0};
-      transport.on.callsArgWith(1, JSON.stringify(expectedData));
+      transport.on.callsArgWith(1, expectedData);
       let promise = syncClient.loadGallery();
 
       promise
