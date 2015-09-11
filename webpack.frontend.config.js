@@ -42,7 +42,6 @@ export default {
       template: 'client/index.html',
       inject: 'body',
     }),
-
-    //new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
   ],
 };
