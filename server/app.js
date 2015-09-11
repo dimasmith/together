@@ -6,8 +6,9 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var handlePreviews = require('./previewController');
+var startSyncServer = require('./syncServer');
 var PreviewLoaderFactory = require('./PreviewLoaderFactory');
+import * as gallery from './gallery.js';
 
 function start(config) {
 
@@ -19,12 +20,14 @@ function start(config) {
     app.use('/photos', express.static(config.photosDir));
   }
 
-  var previewLoader = PreviewLoaderFactory.create(
+  var galleryLoader = PreviewLoaderFactory.create(
     config.previewLoader.type,
     config.previewLoader.config
   );
 
-  handlePreviews(io, previewLoader);
+  gallery.setPhotos(galleryLoader.loadPhotos());
+
+  startSyncServer(io, gallery);
 
   console.info('Starting server on', config.host, config.port);
   server.listen(config.port, function() {
