@@ -10,8 +10,9 @@ import thunkMiddleware from 'redux-thunk';
 import MainPage from './pages/MainPage.js';
 import PhotoPage from './pages/PhotoPage.js';
 import ThumbnailsPage from './pages/ThumbnailsPage.js';
-import rootReducer from './reducers/photosReducers.js';
-import {initializePreview}  from './actions/photoActions.js';
+import rootReducer from './reducers/galleryReducers.js';
+import {initializeGallery}  from './commands/galleryCommands.js';
+import syncClient from './sync/syncClient.js';
 
 import * as Stylesheet from './stylesheets/together.scss';
 
@@ -24,11 +25,12 @@ const createStoreWithMiddleware = applyMiddleware(
 app.extend({
 
   store: createStoreWithMiddleware(rootReducer),
+  syncClient,
 
   init() {
-    this.mainView = new MainPage({el: document.body}),
+    this.mainView = new MainPage({el: document.body});
     this.mainView.render();
-    this.store.dispatch(initializePreview());
+    this.dispatchAction(initializeGallery());
   },
 
   dispatchAction: function(action) {

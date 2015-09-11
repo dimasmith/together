@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import * as Gallery from '../../common/preview.js';
+import * as Gallery from '../../common/gallery.js';
 
 describe('Gallery reducers', () => {
 
