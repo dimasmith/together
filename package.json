@@ -54,7 +54,10 @@
     "babel-runtime": "^5.8.20",
     "chai": "^3.2.0",
     "css-loader": "^0.18.0",
+    "file-loader": "^0.8.4",
     "html-webpack-plugin": "^1.6.1",
+    "image-webpack-loader": "^1.6.1",
+    "imagemin": "^3.2.0",
     "jade": "^1.11.0",
     "jade-loader": "^0.7.1",
     "jscs": "^2.1.1",
@@ -66,6 +69,7 @@
     "sass-loader": "^2.0.1",
     "sinon": "^1.16.1",
     "style-loader": "^0.12.3",
+    "url-loader": "^0.5.6",
     "webpack": "^1.12.0",
     "webpack-dev-server": "^1.10.1"
   }
