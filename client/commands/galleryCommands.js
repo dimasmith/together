@@ -2,16 +2,9 @@
  * Application actions and action creators
  */
 import app from 'ampersand-app';
-import {showThumbnails, showNextPhoto, showPreviousPhoto, requestGallery, receiveGallery} from '../actions/galleryActions.js';
+import {showThumbnails, showNextPhoto, showPreviousPhoto, showPhoto, requestGallery, receiveGallery} from '../actions/galleryActions.js';
 
 const syncClient = app.syncClient;
-
-export function openThumbnails() {
-  return (dispatch) => {
-    dispatch(showThumbnails());
-    syncClient.onShowThumbnails();
-  };
-}
 
 function hasNextPhoto(state) {
   return state.navigation.index < state.navigation.count - 1;
@@ -21,27 +14,26 @@ function hasPreviousPhoto(state) {
   return state.navigation.index >= 0;
 }
 
-function notifyNextPhoto(state) {
-  syncClient.openPhoto(state.navigation.index + 1);
-}
-
-function notifyPreviousPhoto(state) {
-  syncClient.openPhoto(state.navigation.index - 1);
-}
-
 function isIndexInBounds(state, index) {
   return index >= 0 && index < state.photos.length;
 }
 
-function notifyPhotoIndex(index) {
-  syncClient.openPhoto(index);
+function sendPhotoIndex(state) {
+  syncClient.openPhoto(state.navigation.index);
+}
+
+export function openThumbnails() {
+  return (dispatch) => {
+    dispatch(showThumbnails());
+    syncClient.onShowThumbnails();
+  };
 }
 
 export function nextPhoto() {
   return (dispatch, getState) => {
     if (hasNextPhoto(getState())) {
-      notifyNextPhoto(getState());
       dispatch(showNextPhoto());
+      return dispatch(switchToPhoto(getState().navigation.index));
     } else {
       return Promise.resolve();
     }
@@ -51,8 +43,8 @@ export function nextPhoto() {
 export function previousPhoto() {
   return (dispatch, getState) => {
     if (hasPreviousPhoto(getState())) {
-      notifyPreviousPhoto(getState());
       dispatch(showPreviousPhoto());
+      return dispatch(switchToPhoto(getState().navigation.index));
     } else {
       return Promise.resolve();
     }
@@ -62,8 +54,8 @@ export function previousPhoto() {
 export function switchToPhoto(index) {
   return (dispatch, getState) => {
     if (isIndexInBounds(getState(), index)) {
-      notifyPhotoIndex(index);
       dispatch(showPhoto(index));
+      sendPhotoIndex(getState());
     } else {
       return Promise.resolve();
     }
