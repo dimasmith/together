@@ -5,7 +5,7 @@ import AmpersandView from 'ampersand-view';
 import Combokeys from 'combokeys';
 
 import PhotoToolbarView from '../views/PhotoToolbarView.js';
-import {nextPhoto, previousPhoto, openThumbnails} from '../actions/galleryActions.js';
+import {nextPhoto, previousPhoto, openThumbnails} from '../commands/galleryCommands.js';
 import app from 'ampersand-app';
 import template from '../templates/photoPage.jade';
 

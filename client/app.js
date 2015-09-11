@@ -10,8 +10,8 @@ import thunkMiddleware from 'redux-thunk';
 import MainPage from './pages/MainPage.js';
 import PhotoPage from './pages/PhotoPage.js';
 import ThumbnailsPage from './pages/ThumbnailsPage.js';
-import rootReducer from './reducers/photosReducers.js';
-import {initializeGallery}  from './actions/galleryActions.js';
+import rootReducer from './reducers/galleryReducers.js';
+import {initializeGallery}  from './commands/galleryCommands.js';
 import syncClient from './sync/syncClient.js';
 
 import * as Stylesheet from './stylesheets/together.scss';
