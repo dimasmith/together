@@ -1,7 +1,7 @@
 /**
  * Singleton application store instance
  */
-import * as Preview from '../common/preview.js';
+import * as Preview from '../common/gallery.js';
 
 var gallery = Preview.createPreview();
 
