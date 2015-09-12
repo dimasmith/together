@@ -9,10 +9,6 @@ import path from 'path';
 
 import config from './../config.js';
 
-const webSocketAddress = (config.development)
-  ? '"http://' + config.host + ':' + config.port + '"'
-  : 'window.location.href';
-
 export const cwd = path.join(__dirname, '..');
 
 export const sourceDirs = [
@@ -39,9 +35,6 @@ export default {
     ],
   },
   plugins: [
-    new webpack.DefinePlugin({
-      WEBSOCKET_ADDRESS: webSocketAddress,
-    }),
     new HtmlWebpackPlugin({
       title: 'Together',
       template: 'client/index.html',
