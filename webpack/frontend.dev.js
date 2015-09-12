@@ -1,14 +1,18 @@
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import config from './config.js';
+import path from 'path';
+
+import config from './../config.js';
 
 const webSocketAddress = (config.development)
   ? '"http://' + config.host + ':' + config.port + '"'
   : 'window.location.href';
 
+const cwd = path.join(__dirname, '..');
+
 const sourceDirs = [
-  __dirname + '/client',
-  __dirname + '/common',
+  path.join(cwd, 'client'),
+  path.join(cwd, 'common'),
 ];
 
 export default {
@@ -16,9 +20,11 @@ export default {
     client: './client/app',
   },
   output: {
-    path: __dirname + '/dist',
+    path: path.join(cwd, 'dist'),
     filename: '[name].bundle.js',
   },
+  debug: true,
+  devtool: 'cheap-eval-source-map',
   module: {
     preLoaders: [
       {test: /\.js$/, include: sourceDirs, loader: 'jscs-loader'},
@@ -42,6 +48,5 @@ export default {
       template: 'client/index.html',
       inject: 'body',
     }),
-    new webpack.optimize.UglifyJsPlugin(),
   ],
 };

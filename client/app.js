@@ -38,4 +38,4 @@ app.extend({
   },
 });
 
-domready(app.init.bind(app));
+domready(() => app.init());

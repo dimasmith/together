@@ -1,7 +1,7 @@
 # webpack
 webpack.config.js
-webpack.backend.config.js
-webpack.frontend.config.js
+webpack/webpack.backend.config.js
+webpack/webpack.frontend.config.js
 
 # sources
 client/
