@@ -9,7 +9,7 @@ var devConfiguration = Object.assign({},
   baseConfiguration,
   {
     debug: true,
-    devtool: 'cheap-eval-source-map',
+    devtool: 'eval',
   }
 );
 
