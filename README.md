@@ -8,7 +8,9 @@ Application for simultaneous photo viewing.
 All actions made by any of viewers (like going to next photo or open photo list page)
 are immediately duplicated in browsers of all other viewers.
 
-## Use case
+# Using
+
+## Motivation
 
 Once a friend of mine vent to long vacation. He wanted to share some photos and comment on some of those.
 We started a skype conversation with screen sharing but video quality was pretty bad.
@@ -20,57 +22,59 @@ and ask him to tell about that one. My actions will be synchronized to him as we
 Please note I'm not considering this as a serious application, more like playground to learn
 javascript and node.js.
 
-## Installing
+## Installation
 
 `npm install @dimasmith/together`
 
-## Running installed module
+## Running
 
 Command line client is provided for package.
 Note that in order to serve properly you need to run
 it either from installed module directory
 (`node_modules/@dimasmith/together`) or specify this directory
-as `--cwd` parameter.
+as `--cwd` parameter. This annoyance is scheduled to be fixed in upcoming versions.
 
+Assuming you are in `node_modules/@dimasmith/together`. Start application with
+```bash
+together <path-to-dir-with-photos>
 ```
-Usage: together [options] <photos-dir>
+Open [http://localhost:8000](http://localhost:8000)
 
-  Starts server and show photos from specified dir
+You may change server port using `-p` parameter.
 
-  Options:
+Use `together -h` to see all configuration options.
 
-    -h, --help        output usage information
-    -V, --version     output the version number
-    -p --port [port]  Server port
-    -w --cwd <dir>    Application working directory
+# Development
 
-```
+## Preparation
+
+Clone repository using `git clone https://github.com/dimasmith/together.git`
+
+Install all necessary modules with `npm install`
+
+## Add sample photos
+
+Create directory `photos` inside source (it is added to `.gitignore`).
+Add some photos you want to work with.
+
+You may also create symlink instead of placing directory.
 
 ## Starting
 
-Start server using `npm start`
+`npm start` will start server wrapped by [webpack dev server](http://webpack.github.io/docs/webpack-dev-server.html).
+Dev server is set to recompile client code once you changed any file.
 
-Navigate to [http://localhost:8000](http://localhost:8000)
+Dev server is accessible on [http://localhost:9000](http://localhost:9000) (you can change
+port by setting `DEV_SERVER_PORT` environment variable)
 
-Host and port may be customized by setting environment variables `SERVER_HOST`
-and `SERVER_PORT` respectively.
+Normal server is available on [http://localhost:8000](http://localhost:8000)
 
 ## Compilation
 
-Before running server all sources should be compiled using
-[webpack](http://webpack.github.io).
+Code compiled for production is packed in slightly different manner. Most notable things
+are minification of images and uglifying javascripts so bundle is much smaller.
 
-Compilation script is available in `package.json`. In order to run compilation use
-`npm run-script compile`
-
-## Development mode
-
-By default server is started in development mode. It starts
-[webpack dev server](http://webpack.github.io/docs/webpack-dev-server.html)
-in proxy mode for main server.
-
-Navigate to [http://localhost:9000/webpack-dev-server/](http://localhost:9000/webpack-dev-server/)
-
-Dev server port can be changed by setting `DEV_SERVER_PORT` environment variable.
-
-To disable development server set `NODE_ENV` variable to `production`
+To check compiled code you need to build client bundle using `npm run-script compile`.
+Then start your development server as usual with `npm start` and go to
+[http://localhost:8000](http://localhost:8000) It will serve precompiled scripts.
+Just the same way command line client will do.
