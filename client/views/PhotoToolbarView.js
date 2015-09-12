@@ -3,8 +3,7 @@
  */
 import AmpersandView from 'ampersand-view';
 
-import {previousPhoto, nextPhoto} from '../actions/photoActions.js';
-import {openThumbnails} from '../actions/navigationActions.js';
+import {previousPhoto, nextPhoto, openThumbnails} from '../commands/galleryCommands.js';
 import app from 'ampersand-app';
 import template from '../templates/views/photoToolbar.jade';
 
