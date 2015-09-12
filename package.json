@@ -8,7 +8,7 @@
   },
   "scripts": {
     "compile": "babel-node node_modules/webpack/bin/webpack.js",
-    "prepublish": "babel-node node_modules/webpack/bin/webpack.js",
+    "prepublish": "rm -rf ./dist && babel-node node_modules/webpack/bin/webpack.js",
     "test": "mocha --compilers js:babel/register test/**/*Test.js",
     "start": "babel-node ./server.js"
   },

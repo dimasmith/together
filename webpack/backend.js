@@ -1,6 +1,8 @@
 import webpack from 'webpack';
 import fs from 'fs';
-import config from './config.js';
+import path from 'path';
+
+import config from '../config.js';
 
 // workaround to build backend
 var nodeModules = {};
@@ -12,9 +14,11 @@ fs.readdirSync('node_modules')
     nodeModules[mod] = 'commonjs ' + mod;
   });
 
+const cwd = path.join(__dirname, '..');
+
 const sourceDirs = [
-  __dirname + '/common',
-  __dirname + '/server',
+  path.join(cwd, 'common'),
+  path.join(cwd, 'server'),
 ];
 
 export default  {
@@ -24,7 +28,7 @@ export default  {
   target: 'node',
   externals: nodeModules,
   output: {
-    path: __dirname,
+    path: cwd,
     filename: '[name].js',
   },
   module: {

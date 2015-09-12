@@ -1,14 +1,23 @@
+/**
+ * Base frontend webpack configuration file.
+ * It should be extended with profile-specific configurations.
+ * Not directly usable.
+ */
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import config from './config.js';
+import path from 'path';
+
+import config from './../config.js';
 
 const webSocketAddress = (config.development)
   ? '"http://' + config.host + ':' + config.port + '"'
   : 'window.location.href';
 
-const sourceDirs = [
-  __dirname + '/client',
-  __dirname + '/common',
+export const cwd = path.join(__dirname, '..');
+
+export const sourceDirs = [
+  path.join(cwd, 'client'),
+  path.join(cwd, 'common'),
 ];
 
 export default {
@@ -16,7 +25,7 @@ export default {
     client: './client/app',
   },
   output: {
-    path: __dirname + '/dist',
+    path: path.join(cwd, 'dist'),
     filename: '[name].bundle.js',
   },
   module: {
@@ -27,10 +36,6 @@ export default {
       {test: /\.jade$/, loader: 'jade-loader'},
       {test: /\.scss$/, loader: 'style!css!sass'},
       {test: /\.js$/, include: sourceDirs, loader: 'babel-loader?optional=runtime'},
-      {test: /\.(gif|png|jpe?g|svg)$/, loaders: [
-        'url?limit=10240&name=[path][name].[ext]?[hash]',
-        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-      ],},
     ],
   },
   plugins: [
@@ -42,6 +47,5 @@ export default {
       template: 'client/index.html',
       inject: 'body',
     }),
-    new webpack.optimize.UglifyJsPlugin(),
   ],
 };
