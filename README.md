@@ -46,6 +46,47 @@ Use `together -h` to see all configuration options.
 
 # Development
 
+Application consists of two bundles. Client bundle with all code served in browser and server
+side code that provides serving photos and communication.
+
+Bundles are built with webpack.
+
+* client bundle -> `dist/client.bundle.js`
+* server bundle -> `cli.js`
+
+Both bundles are using some common code placed in `common` directory.
+
+## Notable libraries and approaches
+
+Client side utilize [redux](https://www.npmjs.com/package/redux) for state management.
+View layer is made with [ampersand](http://ampersandjs.com/).
+[sass](http://sass-lang.com/) and [jade](http://jade-lang.com/) used for
+styling and templating respectively. CSS is intended to follow [BEM](https://en.bem.info/).
+
+[Express](http://expressjs.com/) used on server side covered with webpack dev server
+for development mode.
+
+Client-server communication made using websockets backed by [Socket.io](http://socket.io/)
+
+## Code layout
+
+* `client` -> all client code that is delivered into browser
+* `server` -> server side code compiled into cli runner
+* `common` -> packages used by both client and server. Mostly communication related
+* `assets` -> for static assets like images
+
+## Code style
+
+Code style is checked with [jscs](http://jscs.info/) using preset for
+[Airbnb](https://github.com/airbnb/javascript) code style.
+
+All code is transpilled using [babel](http://babeljs.io/). ES2015 features used.
+
+## Tests
+
+Several test are available. Using [mocha](https://mochajs.org/) + [chai](http://chaijs.com/)
+Use `npm test` to run it.
+
 ## Preparation
 
 Clone repository using `git clone https://github.com/dimasmith/together.git`
