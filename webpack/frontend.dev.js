@@ -13,6 +13,12 @@ var devConfiguration = Object.assign({},
   }
 );
 
+devConfiguration.plugins.push(
+  new webpack.DefinePlugin({
+    WEBSOCKET_ADDRESS: `"http://${config.host}:${config.port}"`,
+  })
+);
+
 devConfiguration.module.loaders.push(
   {test: /\.(gif|png|jpe?g|svg)$/, loader: 'url?name=[path][name].[ext]?[hash]'}
 );
