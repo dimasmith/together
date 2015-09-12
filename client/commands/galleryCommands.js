@@ -23,7 +23,7 @@ function sendPhotoIndex(state) {
 export function openThumbnails() {
   return (dispatch) => {
     dispatch(showThumbnails());
-    app.syncClient.onShowThumbnails();
+    app.syncClient.sendOpenThumbnails();
   };
 }
 
