@@ -3,50 +3,18 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 
 import config from './../config.js';
+import baseConfiguration from './frontend.js';
 
-const webSocketAddress = (config.development)
-  ? '"http://' + config.host + ':' + config.port + '"'
-  : 'window.location.href';
+var devConfiguration = Object.assign({},
+  baseConfiguration,
+  {
+    debug: true,
+    devtool: 'cheap-eval-source-map',
+  }
+);
 
-const cwd = path.join(__dirname, '..');
+devConfiguration.module.loaders.push(
+  {test: /\.(gif|png|jpe?g|svg)$/, loader: 'url?name=[path][name].[ext]?[hash]'}
+);
 
-const sourceDirs = [
-  path.join(cwd, 'client'),
-  path.join(cwd, 'common'),
-];
-
-export default {
-  entry: {
-    client: './client/app',
-  },
-  output: {
-    path: path.join(cwd, 'dist'),
-    filename: '[name].bundle.js',
-  },
-  debug: true,
-  devtool: 'cheap-eval-source-map',
-  module: {
-    preLoaders: [
-      {test: /\.js$/, include: sourceDirs, loader: 'jscs-loader'},
-    ],
-    loaders: [
-      {test: /\.jade$/, loader: 'jade-loader'},
-      {test: /\.scss$/, loader: 'style!css!sass'},
-      {test: /\.js$/, include: sourceDirs, loader: 'babel-loader?optional=runtime'},
-      {test: /\.(gif|png|jpe?g|svg)$/, loaders: [
-        'url?limit=10240&name=[path][name].[ext]?[hash]',
-        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-      ],},
-    ],
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      WEBSOCKET_ADDRESS: webSocketAddress,
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Together',
-      template: 'client/index.html',
-      inject: 'body',
-    }),
-  ],
-};
+export default devConfiguration;

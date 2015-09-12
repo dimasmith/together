@@ -2,22 +2,32 @@
  * Development server proxy
  * @type {module.exports}
  */
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var compilerConfiguration = require('./webpack/frontend.dev');
+import webpack from 'webpack';
+import WebpackDevServer from  'webpack-dev-server';
+
+import webpackConfig from './webpack/frontend.dev';
+import path from 'path';
+
+const publicPath = '/';
+const contentBase = path.join(__dirname, 'dist');
 
 function start(config) {
   if (config.development) {
     // Development mode
     // Start webpack dev server as proxy for main server
-    var compiler = webpack(compilerConfiguration);
-    var devServer = new WebpackDevServer(compiler, {
-      contentBase: __dirname + '/dist',
-      filename: 'bundle.js',
+    const compiler = webpack(webpackConfig);
+    const serverUrl = `http://${config.host}:${config.port}`;
+
+    const devServer = new WebpackDevServer(compiler, {
+      contentBase,
+      publicPath,
+      filename: 'client.bundle.js',
       inline: true,
-      hot: true,
+      quiet: false,
+      noInfo: true,
+      stats: {colors: true},
       proxy: {
-        '*': 'http://' + config.host + ':' + config.port,
+        '/photos/*': serverUrl,
       },
     });
 

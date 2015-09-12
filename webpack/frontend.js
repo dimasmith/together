@@ -1,3 +1,8 @@
+/**
+ * Base frontend webpack configuration file.
+ * It should be extended with profile-specific configurations.
+ * Not directly usable.
+ */
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
@@ -8,9 +13,9 @@ const webSocketAddress = (config.development)
   ? '"http://' + config.host + ':' + config.port + '"'
   : 'window.location.href';
 
-const cwd = path.join(__dirname, '..');
+export const cwd = path.join(__dirname, '..');
 
-const sourceDirs = [
+export const sourceDirs = [
   path.join(cwd, 'client'),
   path.join(cwd, 'common'),
 ];
@@ -31,10 +36,6 @@ export default {
       {test: /\.jade$/, loader: 'jade-loader'},
       {test: /\.scss$/, loader: 'style!css!sass'},
       {test: /\.js$/, include: sourceDirs, loader: 'babel-loader?optional=runtime'},
-      {test: /\.(gif|png|jpe?g|svg)$/, loaders: [
-        'url?limit=10240&name=[path][name].[ext]?[hash]',
-        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-      ],},
     ],
   },
   plugins: [
@@ -46,6 +47,5 @@ export default {
       template: 'client/index.html',
       inject: 'body',
     }),
-    new webpack.optimize.UglifyJsPlugin(),
   ],
 };
