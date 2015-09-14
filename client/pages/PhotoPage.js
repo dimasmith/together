@@ -1,16 +1,16 @@
 /**
  * Displays single photo
  */
-import AmpersandView from 'ampersand-view';
 import Combokeys from 'combokeys';
 
+import BasePage from './BasePage.js';
 import PhotoToolbarView from '../views/PhotoToolbarView.js';
 import {nextPhoto, previousPhoto, openThumbnails} from '../commands/galleryCommands.js';
 import app from 'ampersand-app';
-import template from '../templates/photoPage.jade';
+import template from '../templates/pages/photoPage.jade';
 
 //noinspection JSUnusedGlobalSymbols
-export default AmpersandView.extend({
+export default BasePage.extend({
 
   autoRender: true,
   template,
@@ -20,7 +20,7 @@ export default AmpersandView.extend({
 
   bindings: {
     url: {
-      selector: '.b-photo__image',
+      selector: '.photo__image',
       type: 'attribute',
       name: 'src',
     },
@@ -41,6 +41,8 @@ export default AmpersandView.extend({
   render() {
     this.renderWithTemplate();
     this.update();
+    this.showToolbar(new PhotoToolbarView());
+    this.setFixed(true);
   },
 
   update() {
@@ -52,14 +54,5 @@ export default AmpersandView.extend({
     if (photo) {
       this.url = photo.url;
     }
-  },
-
-  subviews: {
-    toolbar: {
-      selector: '.b-photo-toolbar',
-      prepareView(el) {
-        return new PhotoToolbarView({el});
-      },
-    },
   },
 });
