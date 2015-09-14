@@ -13,10 +13,15 @@ export default AmpersandView.extend({
 
   render() {
     this.renderWithTemplate();
-    this.viewSwitcher = new ViewSwitcher(this.queryByHook('page-container'));
+    this.pageSwitcher = new ViewSwitcher(this.query('.page__body'));
+    this.toolbarSwitcher = new ViewSwitcher(this.query('.page__toolbar'));
   },
 
   showPage(view) {
-    this.viewSwitcher.set(view);
+    this.pageSwitcher.set(view);
+  },
+
+  showToolbar(view) {
+    this.toolbarSwitcher.set(view);
   },
 });

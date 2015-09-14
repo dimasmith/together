@@ -15,7 +15,7 @@ html, body {
   padding: 0;
 }
 
-.b-page-container {
+.page__body {
   @include full-height();
   margin: 0;
   padding: 0;
@@ -25,14 +25,34 @@ html, body {
   height: 100%;
 }
 
-.b-photo-toolbar {
+.page__toolbar {
+  position: fixed;
   width: 100%;
   height: $toolbar-height;
   box-shadow: 0 3px 6px #696969;
-  display: flex;
-  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+.page__footer {
+  width: 100%;
+  bottom: 0;
+  height: $footer-height;
+  line-height: $footer-height;
+  box-shadow: 0 -3px 6px #696969;
   position: fixed;
   background-color: #ffffff;
+  text-align: center;
+  font-size: small;
+}
+
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+
+  &_centered {
+    justify-content: center;
+  }
 
   &__button-icon {
     height: $toolbar-height - $unit * 2;
@@ -56,19 +76,6 @@ html, body {
     max-height: 96%;
     margin: auto;
   }
-}
-
-.b-footer {
-  width: 100%;
-  bottom: 0;
-  height: $footer-height;
-  line-height: $footer-height;
-  box-shadow: 0 -3px 6px #696969;
-  justify-content: space-between;
-  position: fixed;
-  background-color: #ffffff;
-  text-align: center;
-  font-size: small;
 }
 
 $thumbnail-width: 320px;

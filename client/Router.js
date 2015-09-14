@@ -30,11 +30,15 @@ class Router {
   }
 
   showPhoto() {
-    this.mainView.showPage(new PhotosPage());
+    this.switchPage(new PhotosPage());
   }
 
   showThumbnails() {
-    this.mainView.showPage(new ThumbnailsPage());
+    this.switchPage(new ThumbnailsPage());
+  }
+
+  switchPage(pageView) {
+    this.mainView.showPage(pageView);
   }
 }
 
