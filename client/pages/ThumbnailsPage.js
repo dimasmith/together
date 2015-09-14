@@ -8,7 +8,7 @@ import AmpersandCollection from 'ampersand-collection';
 import ThumbnailView from '../views/ThumbnailView.js';
 import ThumbnailsToolbarView from '../views/ThumbnailsToolbarView.js';
 import app from 'ampersand-app';
-import template from '../templates/thumbnailsPage.jade';
+import template from '../templates/pages/thumbnailsPage.jade';
 
 var Photo = AmpersandState.extend({
   props: {
