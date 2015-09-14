@@ -20,7 +20,7 @@ export default BasePage.extend({
 
   bindings: {
     url: {
-      selector: '.b-photo__image',
+      selector: '.photo__image',
       type: 'attribute',
       name: 'src',
     },
@@ -42,6 +42,7 @@ export default BasePage.extend({
     this.renderWithTemplate();
     this.update();
     this.showToolbar(new PhotoToolbarView());
+    this.setFixed(true);
   },
 
   update() {

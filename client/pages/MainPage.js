@@ -11,6 +11,10 @@ import app from 'ampersand-app';
 export default AmpersandView.extend({
   template: mainPageTemplate,
 
+  props: {
+    fixed: ['boolean', false, false],
+  },
+
   render() {
     this.renderWithTemplate();
     this.pageSwitcher = new ViewSwitcher(this.query('.page__body'));
@@ -24,4 +28,12 @@ export default AmpersandView.extend({
   showToolbar(view) {
     this.toolbarSwitcher.set(view);
   },
+
+  bindings: {
+    fixed: {
+      type: 'booleanClass',
+      selector: '.page',
+      name: 'page_fixed',
+    }
+  }
 });

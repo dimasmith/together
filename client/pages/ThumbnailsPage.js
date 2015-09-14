@@ -63,7 +63,8 @@ export default BasePage.extend({
   render() {
     this.update();
     this.renderWithTemplate();
-    this.renderCollection(this.photosCollection, ThumbnailView, '.b-thumbnails__container');
+    this.renderCollection(this.photosCollection, ThumbnailView, '.thumbnails');
     this.showToolbar(new ThumbnailsToolbarView());
+    this.setFixed(false);
   },
 });

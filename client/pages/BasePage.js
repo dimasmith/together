@@ -10,4 +10,8 @@ export default AmpersandView.extend({
   showToolbar(toolbarView) {
     app.mainView.showToolbar(toolbarView);
   },
+
+  setFixed(fixed) {
+    app.mainView.fixed = fixed;
+  },
 });

@@ -12,7 +12,7 @@ export default AmpersandView.extend({
   template,
 
   events: {
-    'click .b-thumbnail__image': 'onImageClick',
+    'click .thumbnail__image': 'onImageClick',
   },
 
   onImageClick(evt) {
@@ -23,14 +23,14 @@ export default AmpersandView.extend({
 
   bindings: {
     'model.url': {
-      selector: '.b-thumbnail__image',
+      selector: '.thumbnail__image',
       type: 'attribute',
       name: 'src',
     },
     'model.selected': {
-      selector: '.b-thumbnail',
+      selector: '.thumbnail',
       type: 'booleanClass',
-      name: 'b-thumbnail_selected',
+      name: 'thumbnail_selected',
     },
   },
 });
