@@ -4,9 +4,10 @@
 import program from 'commander';
 import startApp from './app.js';
 import defaultConfig from '../config.js';
+import packageInfo from '../package.json';
 
 program
-  .version('0.1.0')
+  .version(packageInfo.version)
   .description('Starts server and show photos from specified dir')
   .arguments('<photos-dir>')
   .option('-p --port [port]', 'Server port', 8000)
