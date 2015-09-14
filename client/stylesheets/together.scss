@@ -1,11 +1,22 @@
 $unit: 8px;
 
 $toolbar-height: $unit * 6;
+$footer-height: $unit * 4;
 
-html, body, .b-page-container {
+@mixin full-height() {
+  height: 100%;
+}
+
+html, body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: $unit * 2;
   height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.b-page-container {
+  @include full-height();
   margin: 0;
   padding: 0;
 }
@@ -47,6 +58,18 @@ html, body, .b-page-container {
   }
 }
 
+.b-footer {
+  width: 100%;
+  bottom: 0;
+  height: $footer-height;
+  line-height: $footer-height;
+  box-shadow: 0 -3px 6px #696969;
+  justify-content: space-between;
+  position: fixed;
+  background-color: #ffffff;
+  text-align: center;
+  font-size: small;
+}
 
 $thumbnail-width: 320px;
 $thumbnail-height: 240px;
