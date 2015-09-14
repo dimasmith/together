@@ -38,6 +38,7 @@
     "babel": "^5.8.23",
     "combokeys": "^2.4.3",
     "commander": "^2.8.1",
+    "daemon": "^1.1.0",
     "domready": "^1.0.8",
     "express": "^4.13.3",
     "fs": "0.0.2",

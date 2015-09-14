@@ -2,6 +2,7 @@
  * CLI runner for together system
  */
 import program from 'commander';
+import daemon from 'daemon';
 import startApp from './app.js';
 import defaultConfig from '../config.js';
 
@@ -10,7 +11,8 @@ program
   .description('Starts server and show photos from specified dir')
   .arguments('<photos-dir>')
   .option('-p --port [port]', 'Server port', 8000)
-  .option('-w --cwd <dir>', 'Application working directory', './');
+  .option('-w --cwd [dir]', 'Application working directory', './')
+  .option('-d --daemon', 'Run application in daemon mode', false);
 
 program.parse(process.argv);
 
@@ -33,5 +35,9 @@ config.port = port;
 config.photosDir = photosDir;
 config.previewLoader.type = 'filesystem';
 config.previewLoader.config.photosDir = photosDir;
+
+if (program.daemon) {
+  daemon();
+}
 
 startApp(config);
