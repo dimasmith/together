@@ -1,14 +1,14 @@
 /**
  * Displays single photo
  */
-import AmpersandView from 'ampersand-view';
 import AmpersandState from 'ampersand-state';
 import AmpersandCollection from 'ampersand-collection';
 
+import BasePage from './BasePage.js';
 import ThumbnailView from '../views/ThumbnailView.js';
 import ThumbnailsToolbarView from '../views/ThumbnailsToolbarView.js';
 import app from 'ampersand-app';
-import template from '../templates/thumbnailsPage.jade';
+import template from '../templates/pages/thumbnailsPage.jade';
 
 var Photo = AmpersandState.extend({
   props: {
@@ -29,7 +29,7 @@ var PhotosCollection = AmpersandCollection.extend({
 });
 
 //noinspection JSUnusedGlobalSymbols
-export default AmpersandView.extend({
+export default BasePage.extend({
 
   autoRender: true,
   template,
@@ -63,15 +63,8 @@ export default AmpersandView.extend({
   render() {
     this.update();
     this.renderWithTemplate();
-    this.renderCollection(this.photosCollection, ThumbnailView, '.b-thumbnails__container');
-  },
-
-  subviews: {
-    toolbar: {
-      selector: '.b-photo-toolbar',
-      prepareView(el) {
-        return new ThumbnailsToolbarView({el});
-      },
-    },
+    this.renderCollection(this.photosCollection, ThumbnailView, '.thumbnails');
+    this.showToolbar(new ThumbnailsToolbarView());
+    this.setFixed(false);
   },
 });

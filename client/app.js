@@ -8,8 +8,7 @@ import loggerMiddleware from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
 import MainPage from './pages/MainPage.js';
-import PhotoPage from './pages/PhotoPage.js';
-import ThumbnailsPage from './pages/ThumbnailsPage.js';
+import Router from './Router.js';
 import rootReducer from './reducers/galleryReducers.js';
 import {initializeGallery}  from './commands/galleryCommands.js';
 import syncClient from './sync/syncClient.js';
@@ -30,6 +29,7 @@ app.extend({
   init() {
     this.mainView = new MainPage({el: document.body});
     this.mainView.render();
+    this.router = new Router(this.store, this.mainView);
     this.dispatchAction(initializeGallery());
   },
 
