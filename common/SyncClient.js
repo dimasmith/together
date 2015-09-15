@@ -1,33 +1,33 @@
-import * as Protocol from './previewProtocol.js';
+import * as Protocol from './synchronizationProtocol.js';
 
 /**
- * Gallery synchronization protocol client
+ * Gallery synchronization client
  */
 class SyncClient {
 
   constructor(transport) {
     if (!transport) {
-      throw new Error('Missing transport for SyncClient');
+      throw new Error('transport required');
     }
 
     this.transport = transport;
   }
 
   /**
-   * Tells server that photo with given index were open
-   * @param index zero based index of photo
+   * Notifies server that photo were open
+   * @param {Object} navigation with index property containing photo index
    */
-  sendOpenPhoto(index) {
+  sendShowPhoto(navigation) {
     this.transport.send(
-      Protocol.CHANGE_PHOTO,
-      {index}
+      Protocol.SHOW_PHOTO,
+      {index: navigation.index}
     );
   }
 
   /**
-   * Open gallery thumbnails view
+   * Notifies server about opening of thumbnails view
    */
-  sendOpenThumbnails() {
+  sendShowThumbnails() {
     this.transport.send(Protocol.SHOW_THUMBNAILS);
   }
 
@@ -39,10 +39,10 @@ class SyncClient {
    * @returns {Promise}
    */
   loadGallery() {
-    this.transport.send(Protocol.REQUEST_PREVIEW);
+    this.transport.send(Protocol.REQUEST_GALLERY);
     return new Promise((resolve) => {
       this.transport.on(
-        Protocol.INITIALIZE_PREVIEW,
+        Protocol.INITIALIZE_GALLERY,
           data => resolve(data)
       );
     });
@@ -54,7 +54,7 @@ class SyncClient {
    * @param callback
    */
   onShowPhoto(callback) {
-    this.transport.on(Protocol.CHANGE_PHOTO, (data) => callback(data));
+    this.transport.on(Protocol.SHOW_PHOTO, (data) => callback(data));
   }
 
   /**

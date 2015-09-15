@@ -11,12 +11,12 @@ export default function(io, gallery) {
     session.onRequestGallery(() => session.sendGallery(gallery.getState()));
     session.onShowThumbnails(() => {
       gallery.openThumbnails();
-      session.sendOpenThumbnails();
+      session.sendShowThumbnails();
     });
 
-    session.onChangePhoto((data) => {
+    session.onShowPhoto((data) => {
       gallery.openPhoto(data.index);
-      session.sendOpenPhoto(gallery.getState());
+      session.sendShowPhoto(gallery.getState().navigation);
     });
   });
 }

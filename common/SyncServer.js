@@ -1,42 +1,69 @@
 /**
- * Client communication session.
+ * Gallery synchronization server
  */
-import {CHANGE_PHOTO, INITIALIZE_PREVIEW, REQUEST_PREVIEW, SHOW_THUMBNAILS}  from './previewProtocol.js';
+import {SHOW_PHOTO, INITIALIZE_GALLERY, REQUEST_GALLERY, SHOW_THUMBNAILS}  from './synchronizationProtocol.js';
 
-class SyncSession {
+class SyncServer {
 
   constructor(transport) {
+    if (!transport) {
+      throw new Error('transport required');
+    }
+
     this.transport = transport;
   }
 
-  onChangePhoto(callback) {
-    this.transport.on(CHANGE_PHOTO, (data) => callback(data));
-  }
-
-  onShowThumbnails(callback) {
-    this.transport.on(SHOW_THUMBNAILS, () => callback());
-  }
-
-  onRequestGallery(callback) {
-    this.transport.on(REQUEST_PREVIEW, () => callback());
-  }
-
-  sendGallery(state) {
-    this.transport.send(INITIALIZE_PREVIEW, state);
-  }
-
-  sendOpenPhoto(state) {
+  /**
+   * Notifies all clients about particular photo was opened
+   * @param {Object} navigation object with index property
+   */
+  sendShowPhoto(navigation) {
     this.transport.broadcast(
-      CHANGE_PHOTO,
-      {index: state.navigation.index}
+      SHOW_PHOTO,
+      {index: navigation.index}
     );
   }
 
-  sendOpenThumbnails() {
+  /**
+   * Notifies all clients about opening of thumbnails view
+   */
+  sendShowThumbnails() {
     this.transport.broadcast(
       SHOW_THUMBNAILS
     );
   }
+
+  /**
+   * Sent complete representation of gallery to connected client.
+   * @param state
+   */
+  sendGallery(state) {
+    this.transport.send(INITIALIZE_GALLERY, state);
+  }
+
+  /**
+   * Called when one of clients shows photo
+   * @param callback
+   */
+  onShowPhoto(callback) {
+    this.transport.on(SHOW_PHOTO, (data) => callback(data));
+  }
+
+  /**
+   * Called when one of clients opens thumbnails view
+   * @param callback
+   */
+  onShowThumbnails(callback) {
+    this.transport.on(SHOW_THUMBNAILS, () => callback());
+  }
+
+  /**
+   * Called when new client requests full gallery data.
+   * @param callback
+   */
+  onRequestGallery(callback) {
+    this.transport.on(REQUEST_GALLERY, () => callback());
+  }
 }
 
-export default SyncSession;
+export default SyncServer;

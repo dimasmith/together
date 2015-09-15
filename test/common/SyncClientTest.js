@@ -1,7 +1,7 @@
 import {assert} from 'chai';
 import sinon from 'sinon';
 
-import * as Protocol from '../../common/previewProtocol.js';
+import * as Protocol from '../../common/synchronizationProtocol.js';
 import SyncClient from '../../common/SyncClient.js';
 import Transport from '../../common/Transport.js';
 
@@ -21,7 +21,7 @@ describe('Gallery SyncClient', () => {
     afterEach(() =>  transport.send.restore());
 
     it(`should send ${Protocol.SHOW_THUMBNAILS} message`, () => {
-      syncClient.sendOpenThumbnails();
+      syncClient.sendShowThumbnails();
 
       assert(transport.send.calledOnce);
       assert.deepEqual(transport.send.lastCall.args, [Protocol.SHOW_THUMBNAILS], 'wrong arguments passed');
@@ -33,12 +33,12 @@ describe('Gallery SyncClient', () => {
     beforeEach(() => sinon.stub(transport, 'send'));
     afterEach(() =>  transport.send.restore());
 
-    it(`should send ${Protocol.CHANGE_PHOTO} message`, () => {
+    it(`should send ${Protocol.SHOW_PHOTO} message`, () => {
       let payload = {index: 1};
-      syncClient.sendOpenPhoto(payload.index);
+      syncClient.sendShowPhoto(payload);
 
       assert(transport.send.calledOnce);
-      assert.deepEqual(transport.send.lastCall.args, [Protocol.CHANGE_PHOTO, payload], 'wrong arguments passed');
+      assert.deepEqual(transport.send.lastCall.args, [Protocol.SHOW_PHOTO, payload], 'wrong arguments passed');
     });
   });
 
@@ -54,11 +54,11 @@ describe('Gallery SyncClient', () => {
       transport.on.restore();
     });
 
-    it(`should send ${Protocol.REQUEST_PREVIEW} message`, () => {
+    it(`should send ${Protocol.REQUEST_GALLERY} message`, () => {
       syncClient.loadGallery();
 
       assert(transport.send.calledOnce);
-      assert.deepEqual(transport.send.lastCall.args, [Protocol.REQUEST_PREVIEW], 'wrong arguments passed');
+      assert.deepEqual(transport.send.lastCall.args, [Protocol.REQUEST_GALLERY], 'wrong arguments passed');
     });
 
     it(`should return gallery data in promise`, (done) => {

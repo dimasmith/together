@@ -17,13 +17,13 @@ function isIndexInBounds(state, index) {
 }
 
 function sendPhotoIndex(state) {
-  app.syncClient.sendOpenPhoto(state.navigation.index);
+  app.syncClient.sendShowPhoto(state.navigation);
 }
 
 export function openThumbnails() {
   return (dispatch) => {
     dispatch(showThumbnails());
-    app.syncClient.sendOpenThumbnails();
+    app.syncClient.sendShowThumbnails();
   };
 }
 

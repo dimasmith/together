@@ -55,7 +55,7 @@ describe('SocketTransport', () => {
     it('when invoke event listener', (done) => {
       const payloadString = JSON.stringify(payload);
 
-      transport.on(ANY_ACTION, (data) => {
+      transport.on(ANY_ACTION, () => {
         assert.isTrue(parse.calledOnce, 'transport must parse payload before sending to callback');
         assert.isTrue(parse.lastCall.calledWith(payloadString), 'payload string should be passed as parameter to parse');
         done();
@@ -84,7 +84,6 @@ const socket = {
   },
 
   fakeTrigger(payload) {
-    console.log(this._cb);
     this._cb(payload);
   },
 

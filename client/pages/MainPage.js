@@ -34,6 +34,6 @@ export default AmpersandView.extend({
       type: 'booleanClass',
       selector: '.page',
       name: 'page_fixed',
-    }
-  }
+    },
+  },
 });
