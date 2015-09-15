@@ -15,12 +15,12 @@ class SyncClient {
 
   /**
    * Tells server that photo with given index were open
-   * @param index zero based index of photo
+   * @param {Object} navigation with index property containing photo index
    */
-  sendShowPhoto(index) {
+  sendShowPhoto(navigation) {
     this.transport.send(
       Protocol.SHOW_PHOTO,
-      {index}
+      {index: navigation.index}
     );
   }
 

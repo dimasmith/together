@@ -41,7 +41,7 @@ describe('Client-Server communication', () => {
           done();
         });
 
-        client.sendShowPhoto(expectedPhotoIndex);
+        client.sendShowPhoto(expectedIndexObject);
       });
     });
 

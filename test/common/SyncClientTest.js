@@ -35,7 +35,7 @@ describe('Gallery SyncClient', () => {
 
     it(`should send ${Protocol.SHOW_PHOTO} message`, () => {
       let payload = {index: 1};
-      syncClient.sendShowPhoto(payload.index);
+      syncClient.sendShowPhoto(payload);
 
       assert(transport.send.calledOnce);
       assert.deepEqual(transport.send.lastCall.args, [Protocol.SHOW_PHOTO, payload], 'wrong arguments passed');
