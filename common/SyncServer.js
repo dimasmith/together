@@ -1,16 +1,16 @@
 /**
  * Client communication session.
  */
-import {CHANGE_PHOTO, INITIALIZE_PREVIEW, REQUEST_PREVIEW, SHOW_THUMBNAILS}  from './previewProtocol.js';
+import {SHOW_PHOTO, INITIALIZE_GALLERY, REQUEST_GALLERY, SHOW_THUMBNAILS}  from './synchronizationProtocol.js';
 
-class SyncSession {
+class SyncServer {
 
   constructor(transport) {
     this.transport = transport;
   }
 
-  onChangePhoto(callback) {
-    this.transport.on(CHANGE_PHOTO, (data) => callback(data));
+  onShowPhoto(callback) {
+    this.transport.on(SHOW_PHOTO, (data) => callback(data));
   }
 
   onShowThumbnails(callback) {
@@ -18,25 +18,25 @@ class SyncSession {
   }
 
   onRequestGallery(callback) {
-    this.transport.on(REQUEST_PREVIEW, () => callback());
+    this.transport.on(REQUEST_GALLERY, () => callback());
   }
 
   sendGallery(state) {
-    this.transport.send(INITIALIZE_PREVIEW, state);
+    this.transport.send(INITIALIZE_GALLERY, state);
   }
 
-  sendOpenPhoto(state) {
+  sendShowPhoto(navigation) {
     this.transport.broadcast(
-      CHANGE_PHOTO,
-      {index: state.navigation.index}
+      SHOW_PHOTO,
+      {index: navigation.index}
     );
   }
 
-  sendOpenThumbnails() {
+  sendShowThumbnails() {
     this.transport.broadcast(
       SHOW_THUMBNAILS
     );
   }
 }
 
-export default SyncSession;
+export default SyncServer;

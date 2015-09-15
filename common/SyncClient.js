@@ -1,4 +1,4 @@
-import * as Protocol from './previewProtocol.js';
+import * as Protocol from './synchronizationProtocol.js';
 
 /**
  * Gallery synchronization protocol client
@@ -17,9 +17,9 @@ class SyncClient {
    * Tells server that photo with given index were open
    * @param index zero based index of photo
    */
-  sendOpenPhoto(index) {
+  sendShowPhoto(index) {
     this.transport.send(
-      Protocol.CHANGE_PHOTO,
+      Protocol.SHOW_PHOTO,
       {index}
     );
   }
@@ -27,7 +27,7 @@ class SyncClient {
   /**
    * Open gallery thumbnails view
    */
-  sendOpenThumbnails() {
+  sendShowThumbnails() {
     this.transport.send(Protocol.SHOW_THUMBNAILS);
   }
 
@@ -39,10 +39,10 @@ class SyncClient {
    * @returns {Promise}
    */
   loadGallery() {
-    this.transport.send(Protocol.REQUEST_PREVIEW);
+    this.transport.send(Protocol.REQUEST_GALLERY);
     return new Promise((resolve) => {
       this.transport.on(
-        Protocol.INITIALIZE_PREVIEW,
+        Protocol.INITIALIZE_GALLERY,
           data => resolve(data)
       );
     });
@@ -54,7 +54,7 @@ class SyncClient {
    * @param callback
    */
   onShowPhoto(callback) {
-    this.transport.on(Protocol.CHANGE_PHOTO, (data) => callback(data));
+    this.transport.on(Protocol.SHOW_PHOTO, (data) => callback(data));
   }
 
   /**

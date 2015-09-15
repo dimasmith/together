@@ -1,15 +1,15 @@
 import {assert} from 'chai';
 
-import {REQUEST_PREVIEW, INITIALIZE_PREVIEW} from '../../common/previewProtocol.js';
+import {REQUEST_GALLERY, INITIALIZE_GALLERY} from '../../common/synchronizationProtocol.js';
 import Client from '../../common/SyncClient.js';
 import Server from '../../common/SyncServer.js';
 import LocalTransport from './LocalTransport.js';
 
 describe('Client-Server communication', () => {
 
-  let transport = new LocalTransport();
-  let client = new Client(transport);
-  let server = new Server(transport);
+  let transport;
+  let client;
+  let server;
 
   beforeEach(() => {
     transport = new LocalTransport();
@@ -35,13 +35,13 @@ describe('Client-Server communication', () => {
       const expectedPhotoIndex = 42;
       const expectedIndexObject = {index: expectedPhotoIndex};
 
-      it('onChangePhoto callback should be triggered on server', (done) => {
-        server.onChangePhoto((photoIndex) => {
+      it('onShowPhoto callback should be triggered on server', (done) => {
+        server.onShowPhoto((photoIndex) => {
           assert.deepEqual(photoIndex, expectedIndexObject);
           done();
         });
 
-        client.sendOpenPhoto(expectedPhotoIndex);
+        client.sendShowPhoto(expectedPhotoIndex);
       });
     });
 
@@ -50,7 +50,7 @@ describe('Client-Server communication', () => {
       it('onShowThumbnails callback should be triggered on server', (done) => {
         server.onShowThumbnails(() => done());
 
-        client.sendOpenThumbnails();
+        client.sendShowThumbnails();
       });
     });
   });
@@ -85,7 +85,7 @@ describe('Client-Server communication', () => {
           done();
         });
 
-        server.sendOpenPhoto({navigation: expectedIndexObject});
+        server.sendShowPhoto(expectedIndexObject);
       });
     });
 
@@ -94,7 +94,7 @@ describe('Client-Server communication', () => {
       it('onShowThumbnails callback should be triggered on client', (done) => {
         client.onShowThumbnails(() => done());
 
-        server.sendOpenThumbnails();
+        server.sendShowThumbnails();
       });
     });
   });
