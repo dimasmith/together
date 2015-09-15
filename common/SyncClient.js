@@ -1,20 +1,20 @@
 import * as Protocol from './synchronizationProtocol.js';
 
 /**
- * Gallery synchronization protocol client
+ * Gallery synchronization client
  */
 class SyncClient {
 
   constructor(transport) {
     if (!transport) {
-      throw new Error('Missing transport for SyncClient');
+      throw new Error('transport required');
     }
 
     this.transport = transport;
   }
 
   /**
-   * Tells server that photo with given index were open
+   * Notifies server that photo were open
    * @param {Object} navigation with index property containing photo index
    */
   sendShowPhoto(navigation) {
@@ -25,7 +25,7 @@ class SyncClient {
   }
 
   /**
-   * Open gallery thumbnails view
+   * Notifies server about opening of thumbnails view
    */
   sendShowThumbnails() {
     this.transport.send(Protocol.SHOW_THUMBNAILS);
