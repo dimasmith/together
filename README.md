@@ -77,8 +77,10 @@ Client-server communication made using websockets backed by [Socket.io](http://s
 
 ## Code style
 
-Code style is checked with [jscs](http://jscs.info/) using preset for
+Code style is checked with [eslint](http://eslint.org) using preset for
 [Airbnb](https://github.com/airbnb/javascript) code style.
+
+Eslint also does static analysis of code.
 
 All code is transpilled using [babel](http://babeljs.io/). ES2015 features used.
 
