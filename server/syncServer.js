@@ -6,7 +6,7 @@ import Server from '../common/SyncServer.js';
 
 export default function(io, gallery) {
   io.on('connection', (socket) => {
-    let session = new Server(new SocketTransport(socket));
+    const session = new Server(new SocketTransport(socket));
 
     session.onRequestGallery(() => session.sendGallery(gallery.getState()));
     session.onShowThumbnails(() => {
