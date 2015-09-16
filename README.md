@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/dimasmith/together.svg?branch=dev)](https://travis-ci.org/dimasmith/together)
+[![Dependency Status](https://david-dm.org/dimasmith/together.svg)](https://david-dm.org/dimasmith/together)
+[![devDependency Status](https://david-dm.org/dimasmith/together/dev-status.svg)](https://david-dm.org/dimasmith/together#info=devDependencies)
 
 Together
 ========
