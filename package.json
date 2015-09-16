@@ -9,6 +9,7 @@
   "scripts": {
     "compile": "babel-node node_modules/webpack/bin/webpack.js",
     "compile-backend": "babel-node node_modules/webpack/bin/webpack.js --config webpack/backend.js",
+    "compile-frontend": "babel-node node_modules/webpack/bin/webpack.js --config webpack/frontend.dev.js",
     "prepublish": "rimraf ./dist && babel-node node_modules/webpack/bin/webpack.js",
     "test": "mocha --compilers js:babel/register test/**/*Test.js",
     "start": "babel-node ./server.js"

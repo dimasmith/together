@@ -13,9 +13,10 @@ import rootReducer from './reducers/galleryReducers.js';
 import {initializeGallery}  from './commands/galleryCommands.js';
 import syncClient from './sync/syncClient.js';
 
-import * as Stylesheet from './stylesheets/together.scss';
-
+/* eslint-disable no-unused-vars */
+import stylesheet from './stylesheets/together.scss';
 import PatchedView from './patch/AmpersandView.js';
+/* eslint-enable no-unused-vars */
 
 const createStoreWithMiddleware = applyMiddleware(
   loggerMiddleware, thunkMiddleware
@@ -33,7 +34,7 @@ app.extend({
     this.dispatchAction(initializeGallery());
   },
 
-  dispatchAction: function(action) {
+  dispatchAction(action) {
     this.store.dispatch(action);
   },
 });

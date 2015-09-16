@@ -20,12 +20,14 @@ class Router {
 
   route(state) {
     switch (state.navigation.viewMode) {
-      case PHOTO_MODE:
-        this.showPhoto();
-        break;
-      case THUMBNAILS_MODE:
-        this.showThumbnails();
-        break;
+    case PHOTO_MODE:
+      this.showPhoto();
+      break;
+    case THUMBNAILS_MODE:
+      this.showThumbnails();
+      break;
+    default:
+      return false;
     }
   }
 

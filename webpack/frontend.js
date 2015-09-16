@@ -27,7 +27,7 @@ export default {
   },
   module: {
     preLoaders: [
-      {test: /\.js$/, include: sourceDirs, loader: 'jscs-loader'},
+      {test: /\.js$/, include: sourceDirs, loader: 'eslint-loader'},
     ],
     loaders: [
       {test: /\.jade$/, loader: 'jade-loader'},

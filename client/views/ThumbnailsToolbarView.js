@@ -3,11 +3,9 @@
  */
 import AmpersandView from 'ampersand-view';
 
-import {previousPhoto, nextPhoto, openThumbnails} from '../commands/galleryCommands.js';
 import app from 'ampersand-app';
 import template from '../templates/views/thumbnailsToolbar.jade';
 
-//noinspection JSUnusedGlobalSymbols
 export default AmpersandView.extend({
 
   initialize() {
@@ -37,7 +35,7 @@ export default AmpersandView.extend({
   derived: {
     humanReadableIndex: {
       deps: ['index'],
-      fn: function() {
+      fn() {
         return this.index + 1;
       },
     },

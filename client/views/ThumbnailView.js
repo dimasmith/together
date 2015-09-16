@@ -17,7 +17,7 @@ export default AmpersandView.extend({
 
   onImageClick(evt) {
     evt.preventDefault();
-    let index = this.collection.indexOf(this.model);
+    const index = this.collection.indexOf(this.model);
     app.dispatchAction(switchToPhoto(index));
   },
 

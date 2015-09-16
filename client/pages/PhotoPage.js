@@ -9,7 +9,6 @@ import {nextPhoto, previousPhoto, openThumbnails} from '../commands/galleryComma
 import app from 'ampersand-app';
 import template from '../templates/pages/photoPage.jade';
 
-//noinspection JSUnusedGlobalSymbols
 export default BasePage.extend({
 
   autoRender: true,
@@ -50,7 +49,7 @@ export default BasePage.extend({
   },
 
   setState(state) {
-    let photo = state.photos[state.navigation.index];
+    const photo = state.photos[state.navigation.index];
     if (photo) {
       this.url = photo.url;
     }

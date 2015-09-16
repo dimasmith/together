@@ -10,7 +10,7 @@ import ThumbnailsToolbarView from '../views/ThumbnailsToolbarView.js';
 import app from 'ampersand-app';
 import template from '../templates/pages/thumbnailsPage.jade';
 
-var Photo = AmpersandState.extend({
+const Photo = AmpersandState.extend({
   props: {
     url: ['string'],
     date: ['date'],
@@ -21,14 +21,13 @@ var Photo = AmpersandState.extend({
   },
 });
 
-var PhotosCollection = AmpersandCollection.extend({
+const PhotosCollection = AmpersandCollection.extend({
   model: Photo,
   selectPhoto(index) {
     this.forEach((model, i) => model.selected = i === index);
   },
 });
 
-//noinspection JSUnusedGlobalSymbols
 export default BasePage.extend({
 
   autoRender: true,
@@ -53,10 +52,10 @@ export default BasePage.extend({
   },
 
   setState(state) {
-    let photos = state.photos;
+    const photos = state.photos;
     this.photosCollection.reset(photos);
 
-    let index = state.navigation.index;
+    const index = state.navigation.index;
     this.photosCollection.selectPhoto(index);
   },
 

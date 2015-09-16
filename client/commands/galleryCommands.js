@@ -27,28 +27,6 @@ export function openThumbnails() {
   };
 }
 
-export function nextPhoto() {
-  return (dispatch, getState) => {
-    if (hasNextPhoto(getState())) {
-      dispatch(showNextPhoto());
-      return dispatch(switchToPhoto(getState().navigation.index));
-    } else {
-      return Promise.resolve();
-    }
-  };
-}
-
-export function previousPhoto() {
-  return (dispatch, getState) => {
-    if (hasPreviousPhoto(getState())) {
-      dispatch(showPreviousPhoto());
-      return dispatch(switchToPhoto(getState().navigation.index));
-    } else {
-      return Promise.resolve();
-    }
-  };
-}
-
 export function switchToPhoto(index) {
   return (dispatch, getState) => {
     if (isIndexInBounds(getState(), index)) {
@@ -57,6 +35,28 @@ export function switchToPhoto(index) {
     } else {
       return Promise.resolve();
     }
+  };
+}
+
+export function nextPhoto() {
+  return (dispatch, getState) => {
+    if (hasNextPhoto(getState())) {
+      dispatch(showNextPhoto());
+      return dispatch(switchToPhoto(getState().navigation.index));
+    }
+
+    return Promise.resolve();
+  };
+}
+
+export function previousPhoto() {
+  return (dispatch, getState) => {
+    if (hasPreviousPhoto(getState())) {
+      dispatch(showPreviousPhoto());
+      return dispatch(switchToPhoto(getState().navigation.index));
+    }
+
+    return Promise.resolve();
   };
 }
 
