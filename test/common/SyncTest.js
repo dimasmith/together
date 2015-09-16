@@ -1,12 +1,10 @@
 import {assert} from 'chai';
 
-import {REQUEST_GALLERY, INITIALIZE_GALLERY} from '../../common/synchronizationProtocol.js';
 import Client from '../../common/SyncClient.js';
 import Server from '../../common/SyncServer.js';
 import LocalTransport from './LocalTransport.js';
 
 describe('Client-Server communication', () => {
-
   let transport;
   let client;
   let server;
@@ -18,9 +16,7 @@ describe('Client-Server communication', () => {
   });
 
   describe('when client', () => {
-
     describe('requests library', () => {
-
       it(`onRequestGallery callback should be triggered on server`, (done) => {
         server.onRequestGallery(() => {
           done();
@@ -31,7 +27,6 @@ describe('Client-Server communication', () => {
     });
 
     describe('switches current photo', () => {
-
       const expectedPhotoIndex = 42;
       const expectedIndexObject = {index: expectedPhotoIndex};
 
@@ -46,7 +41,6 @@ describe('Client-Server communication', () => {
     });
 
     describe('switches to thumbnails', () => {
-
       it('onShowThumbnails callback should be triggered on server', (done) => {
         server.onShowThumbnails(() => done());
 
@@ -56,14 +50,11 @@ describe('Client-Server communication', () => {
   });
 
   describe('when server', () => {
-
     describe('sends gallery', () => {
-
       const expectedGallery = {gallery: 'gallery'};
 
       it('client load gallery promise should be resolved with gallery data', (done) => {
-
-        let galleryPromise = client.loadGallery();
+        const galleryPromise = client.loadGallery();
 
         server.sendGallery(expectedGallery);
 
@@ -75,7 +66,6 @@ describe('Client-Server communication', () => {
     });
 
     describe('switches current photo', () => {
-
       const expectedPhotoIndex = 42;
       const expectedIndexObject = {index: expectedPhotoIndex};
 
@@ -90,7 +80,6 @@ describe('Client-Server communication', () => {
     });
 
     describe('switches to thumbnails', () => {
-
       it('onShowThumbnails callback should be triggered on client', (done) => {
         client.onShowThumbnails(() => done());
 

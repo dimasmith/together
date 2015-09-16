@@ -9,6 +9,7 @@
   "scripts": {
     "compile": "babel-node node_modules/webpack/bin/webpack.js",
     "prepublish": "rimraf ./dist && babel-node node_modules/webpack/bin/webpack.js",
+    "pretest": "eslint test/**/*.js",
     "test": "mocha --compilers js:babel/register test/**/*Test.js",
     "start": "babel-node ./server.js"
   },
