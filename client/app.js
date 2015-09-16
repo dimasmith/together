@@ -3,7 +3,7 @@
  */
 import app from 'ampersand-app';
 import domready from 'domready';
-import { createStore, applyMiddleware } from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import loggerMiddleware from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
@@ -13,10 +13,8 @@ import rootReducer from './reducers/galleryReducers.js';
 import {initializeGallery}  from './commands/galleryCommands.js';
 import syncClient from './sync/syncClient.js';
 
-/* eslint-disable no-unused-vars */
-import stylesheet from './stylesheets/together.scss';
-import PatchedView from './patch/AmpersandView.js';
-/* eslint-enable no-unused-vars */
+import './stylesheets/together.scss';
+import './patch/AmpersandView.js';
 
 const createStoreWithMiddleware = applyMiddleware(
   loggerMiddleware, thunkMiddleware
