@@ -1,9 +1,6 @@
 /**
  * Application actions and action creators
  */
-import app from 'ampersand-app';
-
-const syncClient = app.syncClient;
 
 export const REQUEST_PREVIEW = 'REQUEST_PREVIEW';
 export function requestGallery() {

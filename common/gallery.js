@@ -16,8 +16,8 @@ const initialGallery = {
   updatedAt: new Date(),
 };
 
-function extendGallery(initialGallery, gallery = {}) {
-  return Object.assign({}, initialGallery, gallery);
+function extendGallery(currentGallery, gallery = {}) {
+  return Object.assign({}, currentGallery, gallery);
 }
 
 function extendNavigation(gallery, navigation) {

@@ -1,23 +1,23 @@
 /**
  * Singleton application store instance
  */
-import * as Preview from '../common/gallery.js';
+import {THUMBNAILS_MODE, setCurrentPhotoIndex, setPhotos as updatePhotos, setViewMode, createPreview} from '../common/gallery.js';
 
-var gallery = Preview.createPreview();
+let gallery = createPreview();
 
 /**
  * Open photo in photo view in gallery.
  * @param {number} index
  */
 export function openPhoto(index) {
-  gallery = Preview.setCurrentPhotoIndex(gallery, index);
+  gallery = setCurrentPhotoIndex(gallery, index);
 }
 
 /**
  * Open thumbnails view of gallery
  */
 export function openThumbnails() {
-  gallery = Preview.setViewMode(gallery, Preview.THUMBNAILS_MODE);
+  gallery = setViewMode(gallery, THUMBNAILS_MODE);
 }
 
 /**
@@ -25,7 +25,7 @@ export function openThumbnails() {
  * @param {array} photos
  */
 export function setPhotos(photos) {
-  gallery = Preview.setPhotos(gallery, photos);
+  gallery = updatePhotos(gallery, photos);
 }
 
 /**

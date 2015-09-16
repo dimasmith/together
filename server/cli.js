@@ -21,8 +21,8 @@ if (program.cwd !== process.cwd()) {
   process.chdir(program.cwd);
 }
 
-var port = program.port || process.env.SERVER_PORT || 8000;
-var photosDir = program.args[0] || process.env.PHOTOS;
+const port = program.port || process.env.SERVER_PORT || 8000;
+const photosDir = program.args[0] || process.env.PHOTOS;
 
 if (!photosDir) {
   console.error('Please provide photos directory');
@@ -30,7 +30,7 @@ if (!photosDir) {
   process.exit(1);
 }
 
-var config = Object.assign({}, defaultConfig);
+const config = Object.assign({}, defaultConfig);
 config.development = false;
 config.port = port;
 config.photosDir = photosDir;

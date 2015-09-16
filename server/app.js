@@ -2,16 +2,19 @@
  * Application server. Entry point for all app.
  * @type {module.exports}
  */
-var express = require('express');
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var startSyncServer = require('./syncServer');
-var PreviewLoaderFactory = require('./PreviewLoaderFactory');
+import express from 'express';
+import {Server} from 'http';
+import startSyncServer from './syncServer';
+import PreviewLoaderFactory from './PreviewLoaderFactory';
 import * as gallery from './gallery.js';
+import IO from 'socket.io';
+import logger from './util/logger.js';
+
+const app = express();
+const server = new Server(app);
+const io = new IO(server);
 
 function start(config) {
-
   app.use(express.static('dist'));
   app.use('/assets', express.static('assets'));
 
@@ -20,7 +23,7 @@ function start(config) {
     app.use('/photos', express.static(config.photosDir));
   }
 
-  var galleryLoader = PreviewLoaderFactory.create(
+  const galleryLoader = PreviewLoaderFactory.create(
     config.previewLoader.type,
     config.previewLoader.config
   );
@@ -29,10 +32,8 @@ function start(config) {
 
   startSyncServer(io, gallery);
 
-  console.info('Starting server on', config.host, config.port);
-  server.listen(config.port, function() {
-    console.info('Server started on', config.host, config.port);
-  });
+  logger.info('Starting server on', config.host, config.port);
+  server.listen(config.port, () => logger.info('Server started on', config.host, config.port));
 }
 
 export default start;

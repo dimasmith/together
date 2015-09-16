@@ -7,7 +7,9 @@ import WebpackDevServer from  'webpack-dev-server';
 
 import webpackConfig from './webpack/frontend.dev';
 import path from 'path';
+import {createLogger} from './server/util/logger.js';
 
+const logger = createLogger('webpack-devserver');
 const publicPath = '/';
 const contentBase = path.join(__dirname, 'dist');
 
@@ -31,11 +33,8 @@ function start(config) {
       },
     });
 
-    devServer.listen(config.proxyPort, config.host, function() {
-      console.info('Dev server started in proxy mode on', config.proxyPort);
-    });
+    devServer.listen(config.proxyPort, config.host, () => logger.info('Dev server started in proxy mode on', config.proxyPort));
   }
-
 }
 
 module.exports = start;

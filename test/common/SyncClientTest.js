@@ -6,7 +6,6 @@ import SyncClient from '../../common/SyncClient.js';
 import Transport from '../../common/Transport.js';
 
 describe('Gallery SyncClient', () => {
-
   let transport = new Transport();
   let syncClient;
 
@@ -16,7 +15,6 @@ describe('Gallery SyncClient', () => {
   });
 
   describe('when opening thumbnails', () => {
-
     beforeEach(() => sinon.stub(transport, 'send'));
     afterEach(() =>  transport.send.restore());
 
@@ -29,12 +27,11 @@ describe('Gallery SyncClient', () => {
   });
 
   describe('when opening photo', () => {
-
     beforeEach(() => sinon.stub(transport, 'send'));
     afterEach(() =>  transport.send.restore());
 
     it(`should send ${Protocol.SHOW_PHOTO} message`, () => {
-      let payload = {index: 1};
+      const payload = {index: 1};
       syncClient.sendShowPhoto(payload);
 
       assert(transport.send.calledOnce);
@@ -43,7 +40,6 @@ describe('Gallery SyncClient', () => {
   });
 
   describe('when requesting gallery', () => {
-
     beforeEach(() => {
       sinon.stub(transport, 'send');
       sinon.stub(transport, 'on');
@@ -62,14 +58,13 @@ describe('Gallery SyncClient', () => {
     });
 
     it(`should return gallery data in promise`, (done) => {
-      let expectedData = {data: 0};
+      const expectedData = {data: 0};
       transport.on.callsArgWith(1, expectedData);
-      let promise = syncClient.loadGallery();
+      const promise = syncClient.loadGallery();
 
       promise
         .then((data) => assert.deepEqual(data, expectedData))
         .then(() => done());
     });
   });
-
 });
