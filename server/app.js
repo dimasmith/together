@@ -8,6 +8,7 @@ import startSyncServer from './syncServer';
 import PreviewLoaderFactory from './PreviewLoaderFactory';
 import * as gallery from './gallery.js';
 import IO from 'socket.io';
+import logger from './util/logger.js';
 
 const app = express();
 const server = new Server(app);
@@ -31,8 +32,8 @@ function start(config) {
 
   startSyncServer(io, gallery);
 
-  console.info('Starting server on', config.host, config.port);
-  server.listen(config.port, () => console.info('Server started on', config.host, config.port));
+  logger.info('Starting server on', config.host, config.port);
+  server.listen(config.port, () => logger.info('Server started on', config.host, config.port));
 }
 
 export default start;
