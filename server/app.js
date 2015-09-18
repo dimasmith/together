@@ -6,13 +6,14 @@ import express from 'express';
 import {Server} from 'http';
 import startSyncServer from './syncServer';
 import PreviewLoaderFactory from './PreviewLoaderFactory';
-import * as gallery from './gallery.js';
+import GalleryService from './GalleryService.js';
 import IO from 'socket.io';
 import logger from './util/logger.js';
 
 const app = express();
 const server = new Server(app);
 const io = new IO(server);
+const gallery = new GalleryService(); // todo: pass store after migration is complete
 
 function start(config) {
   app.use(express.static('dist'));

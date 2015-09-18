@@ -35,3 +35,7 @@ export function setPhotos(photos) {
 export function getState() {
   return Object.assign({}, gallery);
 }
+
+export function reset() {
+  gallery = createPreview();
+}

@@ -6,17 +6,18 @@ import Server from '../common/SyncServer.js';
 
 export default function(io, gallery) {
   io.on('connection', (socket) => {
-    const session = new Server(new SocketTransport(socket));
+    const server = new Server(new SocketTransport(socket));
 
-    session.onRequestGallery(() => session.sendGallery(gallery.getState()));
-    session.onShowThumbnails(() => {
-      gallery.openThumbnails();
-      session.sendShowThumbnails();
+    server.onRequestGallery(() => server.sendGallery(gallery.getState()));
+
+    server.onShowThumbnails(() => {
+      gallery.showThumbnails();
+      server.sendShowThumbnails();
     });
 
-    session.onShowPhoto((data) => {
-      gallery.openPhoto(data.index);
-      session.sendShowPhoto(gallery.getState().navigation);
+    server.onShowPhoto((data) => {
+      gallery.showPhoto(data.index);
+      server.sendShowPhoto(gallery.getState().navigation);
     });
   });
 }

@@ -1,17 +1,6 @@
 import {expect} from 'chai';
 import * as Gallery from '../../common/gallery.js';
-
-function createExamplePhoto(index) {
-  const url = `http://examplephotos/${index}.png`;
-  return {url};
-}
-
-function createExamplePhotos(amount) {
-  return new Array(amount)
-    .map((item, index) => createExamplePhoto(index));
-}
-
-console.log(createExamplePhotos(2));
+import {createExamplePhotos} from '../util/examplePhotos.js';
 
 describe('Gallery reducers', () => {
   let initialGallery;
