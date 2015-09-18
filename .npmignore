@@ -1,12 +1,12 @@
 # webpack
 webpack.config.js
-webpack/webpack.backend.config.js
-webpack/webpack.frontend.config.js
+webpack/
 
 # sources
 client/
 server/
 common/
+test/
 
 # settings
 .editorconfig
@@ -16,3 +16,6 @@ common/
 # dev scripts
 devProxy.js
 config.js
+
+# coverage data
+coverage/
