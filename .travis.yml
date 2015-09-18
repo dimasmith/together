@@ -1,8 +1,7 @@
 language: node_js
 node_js:
   - "0.12"
-script:
-  npm test
-  npm run test:codacy
+after_success:
+  - npm run test:codacy
 env:
   - CODACY_PROJECT_TOKEN=123f5a362bc24a589e3a7daf280e1dee
