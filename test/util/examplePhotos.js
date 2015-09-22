@@ -4,6 +4,6 @@ export function createExamplePhoto(index) {
 }
 
 export function createExamplePhotos(amount) {
-  return new Array(amount)
-    .map((item, index) => createExamplePhoto(index));
+  const emptyPhotos = new Array(amount).fill({});
+  return emptyPhotos.map((item, index) => createExamplePhoto(index));
 }

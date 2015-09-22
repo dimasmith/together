@@ -1,8 +1,9 @@
-import * as gallery from './gallery.js';
+import {switchPhoto} from './commands/commands.js';
+import {setPhotos, showThumbnails} from './actions/actions.js';
 
 class GalleryService {
 
-  constructor(store = gallery) {
+  constructor(store) {
     this.store = store;
   }
 
@@ -11,17 +12,17 @@ class GalleryService {
    * @param {array} photos
    */
   setPhotos(photos) {
-    this.store.setPhotos(photos);
+    this.store.dispatch(setPhotos(photos));
     return this.getState();
   }
 
   showPhoto(index) {
-    this.store.openPhoto(index);
+    this.store.dispatch(switchPhoto(index));
     return this.getState();
   }
 
   showThumbnails() {
-    this.store.openThumbnails();
+    this.store.dispatch(showThumbnails());
     return this.getState();
   }
 

@@ -1,17 +1,23 @@
 import {assert} from 'chai';
+import {PHOTO_MODE, THUMBNAILS_MODE} from '../../common/gallery.js';
 import {createExamplePhotos} from '../util/examplePhotos.js';
 import GalleryService from '../../server/GalleryService.js';
-import * as Gallery from '../../server/gallery.js';
+import configureStore from '../../server/store/configureStore.js';
+
+const initialState = {
+  photos: createExamplePhotos(5),
+  navigation: {
+    index: 0,
+    count: 5,
+  },
+};
 
 describe('GalleryService', () => {
   let service;
 
   beforeEach(() => {
-    Gallery.setPhotos(createExamplePhotos(5));
-    service = new GalleryService(Gallery);
+    service = new GalleryService(configureStore(initialState));
   });
-
-  afterEach(() => Gallery.reset());
 
   it('should return plain gallery object on #getState()', () => {
     const state = service.getState();
@@ -33,21 +39,19 @@ describe('GalleryService', () => {
 
   it('should set index and photo view mode when showing photo', () => {
     const expectedPhotoIndex = 3;
-    const expectedViewMode = 'PHOTO';
 
     const state = service.showPhoto(expectedPhotoIndex);
 
     assert.equal(state.navigation.index, expectedPhotoIndex);
-    assert.equal(state.navigation.viewMode, expectedViewMode);
+    assert.equal(state.navigation.viewMode, PHOTO_MODE);
   });
 
   it('should change view mode to thumbnails when showing thumbnails', () => {
-    const expectedViewMode = 'THUMBNAILS';
     service.showPhoto(1); // opening photo so gallery does not stay in initial thumbnails view
 
     const state = service.showThumbnails();
 
-    assert.equal(state.navigation.viewMode, expectedViewMode);
+    assert.equal(state.navigation.viewMode, THUMBNAILS_MODE);
   });
 })
 ;

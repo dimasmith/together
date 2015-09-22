@@ -12,7 +12,7 @@
     "pretest": "eslint test/**/*.js",
     "test": "mocha",
     "test:watch": "npm test -- --watch",
-    "test:cov": "istanbul cover _mocha --report lcovonly",
+    "test:cov": "istanbul cover _mocha --report lcov",
     "test:codacy": "npm run test:cov && cat ./coverage/lcov.info | codacy-coverage",
     "start": "babel-node ./server.js"
   },

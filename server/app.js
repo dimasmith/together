@@ -9,11 +9,13 @@ import PreviewLoaderFactory from './PreviewLoaderFactory';
 import GalleryService from './GalleryService.js';
 import IO from 'socket.io';
 import logger from './util/logger.js';
+import configureStore from './store/configureStore.js';
 
 const app = express();
 const server = new Server(app);
 const io = new IO(server);
-const gallery = new GalleryService(); // todo: pass store after migration is complete
+const store = configureStore();
+const gallery = new GalleryService(store);
 
 function start(config) {
   app.use(express.static('dist'));
