@@ -1,6 +1,7 @@
 # build artifacts
 dist/
 cli.js
+coverage/
 
 # node modules
 node_modules/
