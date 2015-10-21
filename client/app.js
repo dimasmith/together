@@ -16,7 +16,7 @@ import syncClient from './sync/syncClient.js';
 const logger = createLogger();
 
 const createStoreWithMiddleware = applyMiddleware(
-  logger, thunkMiddleware
+  thunkMiddleware, logger
 )(createStore);
 
 app.extend({
