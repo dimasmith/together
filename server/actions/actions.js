@@ -1,6 +1,5 @@
 import {extractIndex} from '../util/actionUtils.js';
-
-export const SET_PHOTOS = 'SET_PHOTOS';
+import {SET_PHOTOS, SHOW_PHOTO, SHOW_THUMBNAILS} from '../../common/constants/actionTypes.js';
 
 /**
  * Reset photos in gallery. Change navigation accordingly.
@@ -12,8 +11,6 @@ export function setPhotos(photos) {
     type: SET_PHOTOS,
   };
 }
-
-export const SHOW_PHOTO = 'SHOW_PHOTO';
 
 /**
  * Show photo.
@@ -27,7 +24,6 @@ export function showPhoto(navigation) {
   };
 }
 
-export const SHOW_THUMBNAILS = 'SHOW_THUMBNAILS';
 export function showThumbnails() {
   return {
     type: SHOW_THUMBNAILS,

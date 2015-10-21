@@ -1,4 +1,4 @@
-import * as Protocol from './synchronizationProtocol.js';
+import {REQUEST_GALLERY, SHOW_THUMBNAILS, SHOW_PHOTO, ADD_PHOTOS, INITIALIZE_GALLERY} from './synchronizationProtocol.js';
 
 /**
  * Gallery synchronization client
@@ -19,7 +19,7 @@ class SyncClient {
    */
   sendShowPhoto(navigation) {
     this.transport.send(
-      Protocol.SHOW_PHOTO,
+      SHOW_PHOTO,
       {index: navigation.index}
     );
   }
@@ -28,7 +28,11 @@ class SyncClient {
    * Notifies server about opening of thumbnails view
    */
   sendShowThumbnails() {
-    this.transport.send(Protocol.SHOW_THUMBNAILS);
+    this.transport.send(SHOW_THUMBNAILS);
+  }
+
+  sendAddPhotos(photos) {
+    this.transport.send(ADD_PHOTOS, photos);
   }
 
   /**
@@ -39,10 +43,10 @@ class SyncClient {
    * @returns {Promise}
    */
   loadGallery() {
-    this.transport.send(Protocol.REQUEST_GALLERY);
+    this.transport.send(REQUEST_GALLERY);
     return new Promise((resolve) => {
       this.transport.on(
-        Protocol.INITIALIZE_GALLERY,
+        INITIALIZE_GALLERY,
           data => resolve(data)
       );
     });
@@ -54,7 +58,7 @@ class SyncClient {
    * @param callback
    */
   onShowPhoto(callback) {
-    this.transport.on(Protocol.SHOW_PHOTO, (data) => callback(data));
+    this.transport.on(SHOW_PHOTO, (data) => callback(data));
   }
 
   /**
@@ -62,7 +66,11 @@ class SyncClient {
    * @param callback
    */
   onShowThumbnails(callback) {
-    this.transport.on(Protocol.SHOW_THUMBNAILS, () => callback());
+    this.transport.on(SHOW_THUMBNAILS, () => callback());
+  }
+
+  onAddPhotos(callback) {
+    this.transport.on(ADD_PHOTOS, photos => callback(photos));
   }
 }
 

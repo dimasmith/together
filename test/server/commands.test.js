@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import sinon from 'sinon';
 
-import {SHOW_PHOTO} from '../../server/actions/actions.js';
+import {SHOW_PHOTO} from '../../common/constants/actionTypes.js';
 import {switchPhoto} from '../../server/commands/commands.js';
 
 describe('commands', () => {

@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import {assert, expect} from 'chai';
 
 import Client from '../../common/SyncClient.js';
 import Server from '../../common/SyncServer.js';
@@ -16,7 +16,7 @@ describe('Client-Server communication', () => {
   });
 
   describe('when client', () => {
-    describe('requests library', () => {
+    describe('requests gallery', () => {
       it(`onRequestGallery callback should be triggered on server`, (done) => {
         server.onRequestGallery(() => {
           done();
@@ -45,6 +45,18 @@ describe('Client-Server communication', () => {
         server.onShowThumbnails(() => done());
 
         client.sendShowThumbnails();
+      });
+    });
+
+    describe('add photos to display', () => {
+      it('onAddPhotos callback triggered on server', (done) => {
+        const newPhotos = [{url: 'http://photos.com/1.jpg'}, {url: 'http://photos.com/2.jpg'}];
+        server.onAddPhotos((photos) => {
+          expect(photos).to.eql(newPhotos);
+          done();
+        });
+
+        client.sendAddPhotos(newPhotos);
       });
     });
   });
@@ -84,6 +96,18 @@ describe('Client-Server communication', () => {
         client.onShowThumbnails(() => done());
 
         server.sendShowThumbnails();
+      });
+    });
+
+    describe('add photos to show', () => {
+      it('onAddPhotos callback invoked on client', () => {
+        const newPhotos = [{url: 'http://photos.com/1.jpg'}, {url: 'http://photos.com/2.jpg'}];
+        client.onAddPhotos((photos) => {
+          expect(photos).to.eql(newPhotos);
+          done();
+        });
+
+        server.sendAddPhotos(newPhotos);
       });
     });
   });

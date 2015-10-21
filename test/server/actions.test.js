@@ -1,6 +1,7 @@
 import {assert, expect} from 'chai';
 import {createExamplePhotos} from '../util/examplePhotos.js';
-import {showPhoto, setPhotos, showThumbnails, SHOW_PHOTO, SET_PHOTOS, SHOW_THUMBNAILS} from '../../server/actions/actions.js';
+import {showPhoto, setPhotos, showThumbnails} from '../../server/actions/actions.js';
+import {SHOW_PHOTO, SET_PHOTOS, SHOW_THUMBNAILS} from '../../common/constants/actionTypes.js';
 
 describe('Actions', () => {
   describe('show photo action', () => {

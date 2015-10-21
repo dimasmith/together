@@ -1,28 +1,17 @@
-/**
- * Initial application state and set of reducers
- */
-
-import {combineReducers} from 'redux';
+import {Map} from 'immutable';
 
 import {RECEIVE_PREVIEW, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO, SHOW_THUMBNAILS} from '../actions/galleryActions.js';
+import {ADD_PHOTOS} from '../../common/constants/actionTypes.js';
 import {PHOTO_MODE, THUMBNAILS_MODE} from '../../common/gallery.js';
 
-function photos(state = [], action = null) {
-  switch (action.type) {
-  case RECEIVE_PREVIEW:
-    return action.preview.photos;
-
-  default :
-    return state;
-  }
-}
-
-function navigation(state = {
+export default function navigationReducer(state = {
   fetching: false,
   index: 0,
   count: 0,
   viewMode: THUMBNAILS_MODE,
 }, action = null) {
+  const navigation = new Map(state);
+
   switch (action.type) {
   case RECEIVE_PREVIEW:
     return Object.assign({}, state,
@@ -43,14 +32,10 @@ function navigation(state = {
   case SHOW_THUMBNAILS:
     return Object.assign({}, state, {viewMode: THUMBNAILS_MODE});
 
+  case ADD_PHOTOS:
+    return navigation.update('count', 0, count => count + action.photos.length).toObject();
+
   default :
     return state;
   }
 }
-
-const rootReducer = combineReducers({
-  photos,
-  navigation,
-});
-
-export default rootReducer;

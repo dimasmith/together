@@ -2,7 +2,7 @@ import {assert} from 'chai';
 
 import {createExamplePhotos} from '../../util/examplePhotos.js';
 
-import {SET_PHOTOS} from '../../../server/actions/actions.js';
+import {SET_PHOTOS, ADD_PHOTOS} from '../../../common/constants/actionTypes.js';
 import photos from '../../../server/reducers/photos.js';
 
 describe('photos reducer', () => {
@@ -20,5 +20,14 @@ describe('photos reducer', () => {
     const actualPhotos = photos([], {type: SET_PHOTOS, photos: expectedPhotos});
 
     assert.deepEqual(actualPhotos, expectedPhotos);
+  });
+
+  it(`should handle ${ADD_PHOTOS}`, () => {
+    const existingPhotos = createExamplePhotos(5);
+    const newPhotos = createExamplePhotos(3);
+
+    const actualPhotos = photos(existingPhotos, {type: ADD_PHOTOS, photos: newPhotos});
+
+    assert.deepEqual(actualPhotos, existingPhotos.concat(newPhotos));
   });
 });

@@ -9,7 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 
 import MainPage from './pages/MainPage.js';
 import Router from './Router.js';
-import rootReducer from './reducers/galleryReducers.js';
+import rootReducer from './reducers/rootReducer.js';
 import {initializeGallery} from './commands/galleryCommands.js';
 import syncClient from './sync/syncClient.js';
 

@@ -1,7 +1,7 @@
 /**
  * Gallery synchronization server
  */
-import {SHOW_PHOTO, INITIALIZE_GALLERY, REQUEST_GALLERY, SHOW_THUMBNAILS} from './synchronizationProtocol.js';
+import {SHOW_PHOTO, INITIALIZE_GALLERY, REQUEST_GALLERY, SHOW_THUMBNAILS, ADD_PHOTOS} from './synchronizationProtocol.js';
 
 class SyncServer {
 
@@ -41,6 +41,10 @@ class SyncServer {
     this.transport.send(INITIALIZE_GALLERY, state);
   }
 
+  sendAddPhotos(photos) {
+    this.transport.send(ADD_PHOTOS, photos);
+  }
+
   /**
    * Called when one of clients shows photo
    * @param callback
@@ -63,6 +67,10 @@ class SyncServer {
    */
   onRequestGallery(callback) {
     this.transport.on(REQUEST_GALLERY, () => callback());
+  }
+
+  onAddPhotos(callback) {
+    this.transport.on(ADD_PHOTOS, photos => callback(photos));
   }
 }
 
