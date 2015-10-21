@@ -9,6 +9,7 @@ import app from 'ampersand-app';
 import template from '../templates/views/thumbnailsToolbar.jade';
 
 const dropboxToPhoto = file => {
+  console.log(file);
   return {url: file.thumbnailLink.replace('bounding_box=75', 'bounding_box=1280')};
 };
 
