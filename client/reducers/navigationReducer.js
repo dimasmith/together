@@ -1,7 +1,6 @@
 import {Map} from 'immutable';
 
-import {RECEIVE_PREVIEW, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO, SHOW_THUMBNAILS} from '../actions/galleryActions.js';
-import {ADD_PHOTOS} from '../../common/constants/actionTypes.js';
+import {RECEIVE_PREVIEW, PREVIOUS_PHOTO, NEXT_PHOTO, SHOW_PHOTO, SHOW_THUMBNAILS, ADD_PHOTOS} from '../../common/constants/actionTypes.js';
 import {PHOTO_MODE, THUMBNAILS_MODE} from '../../common/gallery.js';
 
 export default function navigationReducer(state = {
@@ -14,10 +13,8 @@ export default function navigationReducer(state = {
 
   switch (action.type) {
   case RECEIVE_PREVIEW:
-    return Object.assign({}, state,
-      action.preview.navigation,
-      {fetching: false}
-    );
+    return new Map(state).merge(action.preview.navigation).toObject();
+
   case NEXT_PHOTO:
     const nextIndex = Math.min(state.index + 1, state.count - 1);
     return Object.assign({}, state, {index: nextIndex, viewMode: PHOTO_MODE});
