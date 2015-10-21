@@ -1,6 +1,7 @@
 /**
  * Synchronizes view between all clients using websockets
  */
+/* global io, WEBSOCKET_ADDRESS */
 import SocketTransport from '../../common/SocketTransport.js';
 import SyncClient from '../../common/SyncClient.js';
 import app from 'ampersand-app';

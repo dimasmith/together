@@ -1,7 +1,7 @@
 /**
  * Gallery synchronization server
  */
-import {SHOW_PHOTO, INITIALIZE_GALLERY, REQUEST_GALLERY, SHOW_THUMBNAILS}  from './synchronizationProtocol.js';
+import {SHOW_PHOTO, INITIALIZE_GALLERY, REQUEST_GALLERY, SHOW_THUMBNAILS} from './synchronizationProtocol.js';
 
 class SyncServer {
 

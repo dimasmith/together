@@ -24,7 +24,7 @@ const Photo = AmpersandState.extend({
 const PhotosCollection = AmpersandCollection.extend({
   model: Photo,
   selectPhoto(index) {
-    this.forEach((model, i) => model.selected = i === index);
+    this.forEach((model, idx) => model.selected = idx === index);
   },
 });
 
