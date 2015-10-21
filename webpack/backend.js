@@ -2,17 +2,11 @@ import webpack from 'webpack';
 import fs from 'fs';
 import path from 'path';
 
-import config from '../config.js';
-
 // workaround to build backend
-var nodeModules = {};
+const nodeModules = {};
 fs.readdirSync('node_modules')
-  .filter(function(x) {
-    return ['.bin'].indexOf(x) === -1;
-  })
-  .forEach(function(mod) {
-    nodeModules[mod] = 'commonjs ' + mod;
-  });
+  .filter(moduleDirs => ['.bin'].indexOf(moduleDirs) === -1)
+  .forEach(module => nodeModules[module] = 'commonjs ' + module);
 
 const cwd = path.join(__dirname, '..');
 
