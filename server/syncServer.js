@@ -19,5 +19,10 @@ export default function(io, gallery) {
       gallery.showPhoto(data.index);
       server.sendShowPhoto(gallery.getState().navigation);
     });
+
+    server.onAddPhotos(photos => {
+      gallery.addPhotos(photos);
+      server.sendAddPhotos(photos);
+    });
   });
 }

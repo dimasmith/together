@@ -1,4 +1,4 @@
-import {assert} from 'chai';
+import {assert, expect} from 'chai';
 import {PHOTO_MODE, THUMBNAILS_MODE} from '../../common/gallery.js';
 import {createExamplePhotos} from '../util/examplePhotos.js';
 import GalleryService from '../../server/GalleryService.js';
@@ -52,6 +52,16 @@ describe('GalleryService', () => {
     const state = service.showThumbnails();
 
     assert.equal(state.navigation.viewMode, THUMBNAILS_MODE);
+  });
+
+  it('should add photos and update count when adding photos', () => {
+    const newPhotos = createExamplePhotos(3);
+    const allPhotos = initialState.photos.concat(newPhotos);
+    const state = service.addPhotos(newPhotos);
+
+    expect(state.photos).to.deep.equal(allPhotos, 'new photos should be added');
+    expect(state.navigation.count).to.deep.equal(allPhotos.length, 'count should reflect new length');
+    expect(state.navigation.index).to.deep.equal(initialState.navigation.index, 'index should not change');
   });
 })
 ;

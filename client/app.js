@@ -11,6 +11,7 @@ import MainPage from './pages/MainPage.js';
 import Router from './Router.js';
 import rootReducer from './reducers/rootReducer.js';
 import {initializeGallery} from './commands/galleryCommands.js';
+import * as Commands from './commands/galleryCommands.js';
 import syncClient from './sync/syncClient.js';
 
 const logger = createLogger();
@@ -36,3 +37,5 @@ app.extend({
 });
 
 domready(() => app.init());
+window.app = app;
+window.commands = Commands;

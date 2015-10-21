@@ -1,7 +1,7 @@
 import {assert, expect} from 'chai';
 import {createExamplePhotos} from '../util/examplePhotos.js';
-import {showPhoto, setPhotos, showThumbnails} from '../../server/actions/actions.js';
-import {SHOW_PHOTO, SET_PHOTOS, SHOW_THUMBNAILS} from '../../common/constants/actionTypes.js';
+import {showPhoto, setPhotos, showThumbnails, addPhotos} from '../../server/actions/actions.js';
+import {SHOW_PHOTO, SET_PHOTOS, SHOW_THUMBNAILS, ADD_PHOTOS} from '../../common/constants/actionTypes.js';
 
 describe('Actions', () => {
   describe('show photo action', () => {
@@ -54,6 +54,15 @@ describe('Actions', () => {
   describe('show thumbnails action', () => {
     it(`should create ${SHOW_THUMBNAILS} action`, () => {
       expect(showThumbnails()).to.eql({type: SHOW_THUMBNAILS});
+    });
+  });
+
+  describe('add photos action', () => {
+    it(`should create ${ADD_PHOTOS} action`, () => {
+      const photos = createExamplePhotos(3);
+      const action = addPhotos(photos);
+
+      expect(action).to.eql({type: ADD_PHOTOS, photos});
     });
   });
 });

@@ -7,7 +7,7 @@ import SyncClient from '../../common/SyncClient.js';
 import io from 'socket.io-client';
 
 import app from 'ampersand-app';
-import {showPhoto, showThumbnails} from '../actions/galleryActions.js';
+import {showPhoto, showThumbnails, addPhotos} from '../actions/galleryActions.js';
 
 const syncClient = new SyncClient(
   new SocketTransport(
@@ -17,5 +17,6 @@ const syncClient = new SyncClient(
 
 syncClient.onShowPhoto(navigation => app.dispatchAction(showPhoto(navigation.index)));
 syncClient.onShowThumbnails(() => app.dispatchAction(showThumbnails()));
+syncClient.onAddPhotos(photos => app.dispatchAction(addPhotos(photos)));
 
 export default syncClient;

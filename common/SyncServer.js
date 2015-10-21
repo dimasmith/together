@@ -42,7 +42,7 @@ class SyncServer {
   }
 
   sendAddPhotos(photos) {
-    this.transport.send(ADD_PHOTOS, photos);
+    this.transport.broadcast(ADD_PHOTOS, photos);
   }
 
   /**

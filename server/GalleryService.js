@@ -1,5 +1,5 @@
 import {switchPhoto} from './commands/commands.js';
-import {setPhotos, showThumbnails} from './actions/actions.js';
+import {setPhotos, showThumbnails, addPhotos} from './actions/actions.js';
 
 class GalleryService {
 
@@ -23,6 +23,11 @@ class GalleryService {
 
   showThumbnails() {
     this.store.dispatch(showThumbnails());
+    return this.getState();
+  }
+
+  addPhotos(photos) {
+    this.store.dispatch(addPhotos(photos));
     return this.getState();
   }
 

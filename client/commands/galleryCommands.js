@@ -2,7 +2,7 @@
  * Application actions and action creators
  */
 import app from 'ampersand-app';
-import {showThumbnails, showNextPhoto, showPreviousPhoto, showPhoto, requestGallery, receiveGallery} from '../actions/galleryActions.js';
+import {showThumbnails, showNextPhoto, showPreviousPhoto, showPhoto, requestGallery, receiveGallery, addPhotos} from '../actions/galleryActions.js';
 
 function hasNextPhoto(state) {
   return state.navigation.index < state.navigation.count - 1;
@@ -67,5 +67,12 @@ export function initializeGallery() {
     return app.syncClient.loadGallery()
       .then(data => dispatch(receiveGallery(data)))
       .catch(err => console.error(err));
+  };
+}
+
+export function addNewPhotos(photos) {
+  return dispatch => {
+    app.syncClient.sendAddPhotos(photos);
+    return dispatch(addPhotos(photos));
   };
 }
